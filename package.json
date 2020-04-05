@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon index.js",
+    "server": "nodemon index.js --ignore client",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client"
   },
   "keywords": [],
   "author": "Hayley",
@@ -19,6 +21,7 @@
     "mongoose": "^5.9.5"
   },
   "engines": {
-    "node": "10.16.3"
+    "node": "10.16.3",
+    "npm": "6.14.2"
   }
 }
