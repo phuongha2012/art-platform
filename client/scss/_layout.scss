@@ -1,0 +1,22 @@
+// Hayley's code
+.flexContainer-row {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.flexContainer-flexStart {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: row;
+}
+
+.container-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding-left: 70px;
+}
+
+// Hayley's code ends
