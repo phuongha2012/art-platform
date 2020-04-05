@@ -5,14 +5,14 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const bcryptjs = require('bcryptjs');
-const config = require('./config.json');
+const keys = require('./config/keys');
 const Comment = require('./models/comment.js');
 const Member = require('./models/member.js');
 const Portfolio = require('./models/portfolio.js');
 
 const PORT = process.env.port || 3000;
 
-const mongodbURI = `mongodb+srv://${config.MONGO_USER}:${config.MONGO_PASSWORD}@${config.MONGO_CLUSTER_NAME}-tvmnw.mongodb.net/test?retryWrites=true&w=majority`;
+const mongodbURI = `mongodb+srv://${keys.MONGO_USER}:${keys.MONGO_PASSWORD}@${keys.MONGO_CLUSTER_NAME}-tvmnw.mongodb.net/test?retryWrites=true&w=majority`;
 mongoose.connect(mongodbURI, {useNewUrlParser: true, useUnifiedTopology: true})
         .then(() => console.log('DB connected'))
         .catch(err => {
