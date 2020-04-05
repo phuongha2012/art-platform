@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon index.js",
     "server": "nodemon index.js --ignore client",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=true npm install --prefix client"
   },
   "keywords": [],
   "author": "Hayley",

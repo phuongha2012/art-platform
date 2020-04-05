@@ -9,7 +9,9 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies": {
+  "dependencies": {
+    "@popperjs/core": "^2.1.1",
+    "grunt-contrib-uglify": "^4.0.1",
     "bootstrap": "^4.4.1",
     "grunt": "^1.1.0",
     "grunt-contrib-csslint": "^2.0.0",
@@ -20,9 +22,5 @@
     "grunt-contrib-watch": "^1.1.0",
     "jquery": "^3.4.1",
     "popper.js": "^1.16.1"
-  },
-  "dependencies": {
-    "@popperjs/core": "^2.1.1",
-    "grunt-contrib-uglify": "^4.0.1"
   }
 }
