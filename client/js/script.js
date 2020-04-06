@@ -1,23 +1,21 @@
 $(document).ready(function(){
   console.log(sessionStorage);
 
-  var url;
+  var url = "https://artful-nz.herokuapp.com";
+  
   // get url and port from config.json
-  $.ajax({
-    url :'config.json',
-    type :'GET',
-    dataType :'json',
-    success : function(configData){
-      // url = `${configData.SERVER_URL}:${configData.SERVER_PORT}`;
-      // url = configData.SERVER_URL + ":" + configData.SERVER_PORT;
-      url = "https://artful-nz.herokuapp.com/";
-      console.log(url);
-      generateLandingPageCards();
-    },//success
-    error:function(){
-      // console.log('error: cannot call api');
-    }//error
-  });//ajax
+  // $.ajax({
+  //   url :'config.json',
+  //   type :'GET',
+  //   dataType :'json',
+  //   success : function(configData){
+  //     url = configData.SERVER_URL + ":" + configData.SERVER_PORT;
+  //     generateLandingPageCards();
+  //   },
+  //   error:function(){
+  //     console.log('error: cannot call api');
+  //   }
+  // });
 
 
 
