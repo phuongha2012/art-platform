@@ -188,7 +188,6 @@ $('#viewMembersBtn').click(function(){
     type : 'GET',
     dataType : 'json',
     success : function(membersFromMongo){
-      console.log(membersFromMongo);
       $('#membersCards').empty();
       document.getElementById('membersCards').innerHTML +=
       '<h2 class="pt-5 pb-4">All Members</h2>';
@@ -200,7 +199,7 @@ $('#viewMembersBtn').click(function(){
       }
     },
     error:function() {
-      // console.log('ERROR: cannot call API');
+      console.log('ERROR: cannot call API');
     }//error
 
   });//ajax
@@ -236,7 +235,7 @@ $('#registerForm').submit(function(){
       }
     },//success
     error:function(){
-      // console.log('error: cannot call api');
+      console.log('error: cannot call api');
     }//error
 
   });//ajax
@@ -280,7 +279,7 @@ $('#loginSubmitBtn').click(function(){
       }
     },//success
     error:function(){
-      // console.log('error: cannot call api');
+      console.log('error: cannot call api');
     }//error
   });//ajax
 });
@@ -340,7 +339,7 @@ $('#addPortfolioForm').submit(function(){
         $('html, body').animate({ scrollTop: 0 }, 'fast');
       },   // success
       error:function(){
-        // console.log('error: cannot call api');
+        console.log('error: cannot call api');
       }  //error
     }); //ajax
   } //else
@@ -358,7 +357,6 @@ function generateMyPortfolios() {
     url: `${url}/myPortfolios/${currentUserId}`,
     type: 'GET',
     success: function(results) {
-      console.log(results);
       if (results === "No portfolio by this user found") {
         document.getElementById('myProjectCards').innerHTML = `
         <div class="noPortfolio text-center">You have not upload any project yet!</div>
@@ -383,7 +381,6 @@ function getMyAccountInfo() {
     type: 'GET',
     dataType: 'json',
     success: function(result) {
-      console.log(result);
       generateAccountSummaryHTML(result);
     },
     error: function(error) {
@@ -580,7 +577,6 @@ function makePortfolioCards(arr) {
       url: `${url}/filterPortfolios/${minPrice}/${maxPrice}/${category}`,
       type: 'GET',
       success: function(response) {
-        console.log(response);
         if (response === 'Sorry, there is no artwork that matches your search!') {
           document.getElementById('artsDeck').innerHTML = `
           <div class="noResultText-wrapper">
