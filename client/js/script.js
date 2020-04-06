@@ -2,6 +2,7 @@ $(document).ready(function(){
   console.log(sessionStorage);
 
   var url = "https://artful-nz.herokuapp.com";
+  generateLandingPageCards();
   
   // get url and port from config.json
   // $.ajax({
