@@ -1,7 +1,6 @@
-// Yanas code
-
 $(document).ready(function(){
   console.log(sessionStorage);
+
   var url;
   // get url and port from config.json
   $.ajax({
@@ -10,7 +9,8 @@ $(document).ready(function(){
     dataType :'json',
     success : function(configData){
       // url = `${configData.SERVER_URL}:${configData.SERVER_PORT}`;
-      url = configData.SERVER_URL + ":" + configData.SERVER_PORT;
+      // url = configData.SERVER_URL + ":" + configData.SERVER_PORT;
+      url = "https://artful-nz.herokuapp.com/";
       console.log(url);
       generateLandingPageCards();
     },//success
