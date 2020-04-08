@@ -117,6 +117,10 @@ p {
   border: 3px solid #cccccc;
 }
 
+.border-red {
+  border: 3px solid #FF9966;
+}
+
 .logo {
   width: 200px;
 }
@@ -193,6 +197,10 @@ p {
 
 .border-gray {
   border: 3px solid #cccccc;
+}
+
+.border-red {
+  border: 3px solid #FF9966;
 }
 
 .logo {
@@ -282,6 +290,10 @@ p {
 
 .bg-register {
   background-image: url("../images/KateLeslie_HolidaySeries2.jpg");
+}
+
+.bg-update {
+  background-image: url("../images/casmir-YanaBrewster.jpg");
 }
 
 .portfolioCard {
