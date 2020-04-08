@@ -1,5 +1,6 @@
-$(document).ready(function(){
 
+
+$(document).ready(function(){
   var url = "https://artful-nz.herokuapp.com";
   generateLandingPageCards();
   
@@ -38,7 +39,6 @@ if (sessionStorage.usersName) {
   $('#projectPage').hide();
   $('#uploadPortfolioPage').hide();
   $('#updatePortfolioPage').hide();
-  $('#deletePortfolioPage').hide();
 } else {
   // buttons
   $('#logoutBtn').hide();
@@ -53,7 +53,6 @@ if (sessionStorage.usersName) {
   $('#projectPage').hide();
   $('#uploadPortfolioPage').hide();
   $('#updatePortfolioPage').hide();
-  $('#deletePortfolioPage').hide();
 }
 
 //Home button to show landing page
@@ -66,7 +65,6 @@ $('#homeBtn').click(function(){
   $('#projectPage').hide();
   $('#uploadPortfolioPage').hide();
   $('#updatePortfolioPage').hide();
-  $('#deletePortfolioPage').hide();
 });
 
 //Login button to show login page
@@ -79,7 +77,6 @@ $('#loginBtn').click(function(){
   $('#projectPage').hide();
   $('#uploadPortfolioPage').hide();
   $('#updatePortfolioPage').hide();
-  $('#deletePortfolioPage').hide();
 });
 
 
@@ -93,7 +90,6 @@ $('#signUpBtn').click(function(){
   $('#viewMorePage').hide();
   $('#uploadPortfolioPage').hide();
   $('#updatePortfolioPage').hide();
-  $('#deletePortfolioPage').hide();
 });
 
 // my portfolio button to show my portfolio page
@@ -107,8 +103,6 @@ $('#myPortfolioBtn').click(function(){
   $('#landingPage').hide();
   $('#viewMorePage').hide();
   $('#uploadPortfolioPage').hide();
-  $('#updatePortfolioPage').hide();
-  $('#deletePortfolioPage').hide();
 });
 
 //upload projects button to show upload project page
@@ -121,7 +115,6 @@ $('#addPortfolio').click(function(){
   $('#landingPage').hide();
   $('#viewMorePage').hide();
   $('#updatePortfolioPage').hide();
-  $('#deletePortfolioPage').hide();
 
 });
 
@@ -135,7 +128,6 @@ $('.back-portfolio').click(function(){
   $('#landingPage').hide();
   $('#viewMorePage').hide();
   $('#updatePortfolioPage').hide();
-  $('#deletePortfolioPage').hide();
 });
 
 //update projects button to show update project page
@@ -148,7 +140,6 @@ $('#updateProject').click(function(){
   $('#landingPage').hide();
   $('#viewMorePage').hide();
   $('#updatePortfolioPage').show();
-  $('#deletePortfolioPage').hide();
 });
 
 // delete projects button to show delete project page
@@ -161,7 +152,6 @@ $('#deleteProject').click(function(){
   $('#landingPage').hide();
   $('#viewMorePage').hide();
   $('#updatePortfolioPage').hide();
-  $('#deletePortfolioPage').show();
 });
 
 
@@ -188,6 +178,7 @@ $('#viewMembersBtn').click(function(){
     type : 'GET',
     dataType : 'json',
     success : function(membersFromMongo){
+      console.log(membersFromMongo);
       $('#membersCards').empty();
       document.getElementById('membersCards').innerHTML +=
       '<h2 class="pt-5 pb-4">All Members</h2>';
@@ -199,7 +190,7 @@ $('#viewMembersBtn').click(function(){
       }
     },
     error:function() {
-      console.log('ERROR: cannot call API');
+      // console.log('ERROR: cannot call API');
     }//error
 
   });//ajax
@@ -265,8 +256,11 @@ $('#loginSubmitBtn').click(function(){
         alert('Incorrect Password');
       }  else {
         sessionStorage.setItem('memberId',loginData._id);
-        sessionStorage.setItem('usersName',loginData.username);
-        sessionStorage.setItem('userEmail',loginData.email);
+        sessionStorage.setItem('username',loginData.username);
+        sessionStorage.setItem('email',loginData.email);
+        sessionStorage.setItem('location',loginData.location);
+        sessionStorage.setItem('website',loginData.website);
+        sessionStorage.setItem('about',loginData.about);
         showMemberName(username);
         $('#logoutBtn').show();
         $('#myPortfolioBtn').show();
@@ -279,7 +273,7 @@ $('#loginSubmitBtn').click(function(){
       }
     },//success
     error:function(){
-      console.log('error: cannot call api');
+      // console.log('error: cannot call api');
     }//error
   });//ajax
 });
@@ -304,9 +298,10 @@ $('#addPortfolioForm').submit(function(){
   let image = $('#addPortfolioImage').val();
   let category = $('#addPortfolioCategory').val();
   let price = $('#addPortfolioPrice').val();
-  let memberId = $('#addPortfolioMemberId').val();
+  let _memberId = sessionStorage.getItem('memberId');
+  console.log(_memberId);
 
-  if (title == '' || description == '' || image == '' || category == '' || price == '' || memberId == ''){
+  if (title == '' || description == '' || image == '' || category == '' || price == ''){
     alert('Please enter all details');
   } else {
     $.ajax({
@@ -318,7 +313,7 @@ $('#addPortfolioForm').submit(function(){
         image : image,
         category : category,
         price: price,
-        memberId : sessionStorage.getItem('memberId')
+        memberId : _memberId
       },
       success : function(portfolio){
         if (portfolio !== 'Title taken already, please try another one') {
@@ -335,28 +330,69 @@ $('#addPortfolioForm').submit(function(){
 
         $('#addPortfolioForm').trigger('reset');
         $('#uploadPortfolioPage').hide();
-        $('#landingPage').show();
-        $('html, body').animate({ scrollTop: 0 }, 'fast');
+        generateMyPortfolios();
+        $('#projectPage').show();
+        $('html, body').animate({ scrollTop: 50}, 'fast');
       },   // success
       error:function(){
-        console.log('error: cannot call api');
+        // console.log('error: cannot call api');
       }  //error
     }); //ajax
   } //else
 }); // submit add portfolio
 
-// View my portfolio project cards =============================================
+// Yanas code ENDS
 
 // Hayley's code
+
+// UPDATE PORTFOLIO FORM ===============================================
+
+$('#updatePortfolioForm').submit(function(){
+  event.preventDefault();
+  let portfolioId = sessionStorage.getItem('projectOnEdit');
+  let _title = $('#updatePortfolioTitle').val();
+  let _description = $('#updatePortfolioDescription').val();
+  let _image = $('#updatePortfolioImage').val();
+  let _category = $('#updatePortfolioCategory').val();
+  let _price = $('#updatePortfolioPrice').val();
+
+  $.ajax({
+    url : `${url}/updatePortfolio/${portfolioId}`,
+    type : 'PATCH',
+    data : {
+      title : _title,
+      description : _description,
+      image : _image,
+      category : _category,
+      price: _price
+    },
+    success : function(data){
+      sessionStorage.removeItem('projectOnEdit');
+      $('#updatePortfolioForm').trigger('reset');
+      $('#updatePortfolioPage').hide();
+      generateMyPortfolios();
+      $('#projectPage').show();
+      $('html, body').animate({ scrollTop: 0 }, 'fast');
+
+    },
+    error:function(){
+      console.log('error: cannot call api');
+    }
+  });
+});
+
+
+// View my portfolio project cards =============================================
+
 function generateMyPortfolios() {
   let currentUserId = sessionStorage.getItem('memberId');
-
   if (!currentUserId) { return; }
 
   $.ajax({
     url: `${url}/myPortfolios/${currentUserId}`,
     type: 'GET',
     success: function(results) {
+      console.log(results);
       if (results === "No portfolio by this user found") {
         document.getElementById('myProjectCards').innerHTML = `
         <div class="noPortfolio text-center">You have not upload any project yet!</div>
@@ -414,6 +450,104 @@ function generateAccountSummaryHTML(account) {
   `;
 }
 
+document.getElementById('updateMemberBtn').addEventListener('click', showEditUserForm);
+
+function showEditUserForm() {
+  console.log(sessionStorage);
+  $('#updateMemberBtn').hide();
+  makeEditUserForm();
+  populateEditUserForm();
+}
+
+// Prefill form's value with current user info
+function populateEditUserForm() {
+  let _username = sessionStorage.getItem('username');
+  let _email = sessionStorage.getItem('email');
+  let _description = ((sessionStorage.getItem('about')) !== "undefined") ? (sessionStorage.getItem('about')) : "";
+  let _website = ((sessionStorage.getItem('website')) !== "undefined") ? (sessionStorage.getItem('website')) : "";
+  let _location = ((sessionStorage.getItem('location')) !== "undefined") ? (sessionStorage.getItem('location')) : "";
+
+  $('#editUserForm__username').val(_username);
+  $('#editUserForm__email').val(_email);
+  $('#editUserForm__description').val(_description);
+  $('#editUserForm__website').val(_website);
+  $('#editUserForm__location').val(_location);
+}
+
+function makeEditUserForm() {
+  document.getElementById('memberAccount').innerHTML = `
+  <form id="editUserForm">
+    <div class="form-group row">
+      <label for="editUserForm__username" class="col-md-3">Username:</label>
+      <input type="text" class="form-control col-md-9" id="editUserForm__username">
+    </div>
+    <div class="form-group row">
+      <label for="editUserForm__email" class="col-md-3">Email:</label>
+      <input type="email" class="form-control col-md-9" id="editUserForm__email">
+    </div>
+    <div class="form-group row">
+      <label for="editUserForm__description" class="col-md-3">Description:</label>
+      <textarea type="text" class="form-control col-md-9" id="editUserForm__description" rows="4"></textarea>
+    </div>
+    <div class="form-group row">
+      <label for="editUserForm__location" class="col-md-3">Location:</label>
+      <input type="text" class="form-control col-md-9" id="editUserForm__location">
+    </div>
+    <div class="form-group row">
+      <label for="editUserForm__website" class="col-md-3">Website:</label>
+      <input type="text" class="form-control col-md-9" id="editUserForm__website">
+    </div>
+    <button class="btn btn-danger btn-font back-portfolio radius float-left mb-5">Cancel</button>
+    <button id="saveUserInfo" type="submit" class="button float-right mb-5">Save</button>
+  </form>
+  `;
+  document.getElementById('editUserForm').addEventListener('submit', updateUser);
+  
+}
+
+function updateUser(e) {
+  e.preventDefault();
+  let _id = sessionStorage.getItem('memberId');
+  let _username = $('#editUserForm__username').val();
+  let _email = $('#editUserForm__email').val();
+  let _about = $('#editUserForm__description').val();
+  let _location = $('#editUserForm__location').val();
+  let _website = $('#editUserForm__website').val();
+
+  $.ajax({
+    url: `${url}/updateMember/${_id}`,
+    type: 'PATCH',
+    data: {
+        username: _username,
+        email: _email,
+        about: _about,
+        location: _location,
+        website: _website
+    },
+    success: function(updatedMember) {
+      generateAccountSummaryHTML(updatedMember);
+      $('#updateMemberBtn').show();
+    },
+    error: function(err) {
+      console.log(err);
+    }
+  });
+}
+
+function generateLandingPageCards() {
+  $.ajax({
+    url: `${url}/portfoliosAndAuthors`,
+    type: 'GET',
+    dataType: 'json',
+    success: function(portfolios) {
+      makeProductCards(portfolios);
+    },
+    error: function(error) {
+      console.log('Error: ' + error);
+    }
+  });
+}
+
 function makePortfolioCards(arr) {
   document.getElementById('myProjectCards').innerHTML = arr.map(item => `
     <div class="card portfolioCard border-bottom">
@@ -421,31 +555,56 @@ function makePortfolioCards(arr) {
     <h5 class="card-text mb-3">${item.title}</h5>
     <div class="portfolioPage-buttonsWrapper">
     <div class="portfolioPage-buttonGroup">
-    <div class="button viewMoreButton btn-font" id="${item._id}">View</div>
-    <div class="button-black editButton btn-font" id="${item._id}">Edit</div>
+        <div class="button viewMoreButton btn-font" id="${item._id}">View</div>
+        <div class="button-black editButton btn-font" id="edit${item._id}">Edit</div>
     </div>
-    <div class="button-red deleteButton btn-font" id="${item._id}">Delete</div>
+    <div class="button-red deleteButton btn-font" id="delete${item._id}">Delete</div>
     </div>
     </div>
     `).join(' ');
 
     let viewMoreButtons = document.getElementsByClassName('viewMoreButton');
 
-    for (let i = 0; i < viewMoreButtons.length; i ++) {
+    for (let i = 0; i < viewMoreButtons.length; i++) {
       viewMoreButtons[i].addEventListener('click', getArtworkInfo);
+    }
+
+    let editButtons = document.getElementsByClassName('editButton');
+
+    for (let i = 0; i < editButtons.length; i++) {
+      editButtons[i].addEventListener('click', prefillUpdateProjectForm);
+    }
+
+    let deleteButtons = document.getElementsByClassName('deleteButton');
+
+    for (let i = 0; i < deleteButtons.length; i++) {
+      deleteButtons[i].addEventListener('click', displayDeletePopup);
     }
   }
 
-  function generateLandingPageCards() {
+
+  function prefillUpdateProjectForm(e) {
+    const _id = (e.target.id).slice(4);
+    sessionStorage.setItem('projectOnEdit', _id);
+
     $.ajax({
-      url: `${url}/portfoliosAndAuthors`,
+      url: `${url}/findProject/${_id}`,
       type: 'GET',
       dataType: 'json',
-      success: function(portfolios) {
-        makeProductCards(portfolios);
+      success: function(project) {
+
+        //pre-fill editProjectForm with project details
+        $('#updatePortfolioTitle').val(project.title);
+        $('#updatePortfolioDescription').val(project.description);
+        $('#updatePortfolioImage').val(project.image);
+        $('#updatePortfolioCategory').val(project.category);
+        $('#updatePortfolioPrice').val(project.price);
+
+        $('#projectPage').hide();
+        $('#updatePortfolioPage').show();
       },
       error: function(error) {
-        console.log('Error: ' + error);
+        console.log(error);
       }
     });
   }
@@ -483,6 +642,7 @@ function makePortfolioCards(arr) {
 
   function getArtworkInfo(e) {
     let id = e.target.id;
+
     $.ajax({
       url: `${url}/portfolioWithAuthor/${id}`,
       type: 'GET',
@@ -505,6 +665,72 @@ function makePortfolioCards(arr) {
         console.log('Error: ' + error);
       }
     });
+  }
+
+  function displayDeletePopup(e) {
+    let projectCard = e.path[2].children[2];
+    let projectId = (e.target.id).slice(6);
+    sessionStorage.setItem('projectOnDelete', projectId);
+
+    projectCard.innerHTML = `
+        <div>
+          <p class="text-center">Are you sure you want to delete this project?</p>
+          <button id="abortDeleteProject" class="btn btn-danger btn-font back-portfolio radius float-left">Cancel</button>
+          <button id="confirmDeleteProject" type="button" class="button float-right">Delete</button>
+        </div> 
+    `;
+
+    document.getElementById('confirmDeleteProject').addEventListener('click', deleteProject);
+    document.getElementById('abortDeleteProject').addEventListener('click', abortDeleteProject);
+  }
+
+  function deleteProject() {
+    let projectId = sessionStorage.getItem('projectOnDelete');
+
+    $.ajax({
+      url: `${url}/deletePortfolio/${projectId}`,
+      type: 'DELETE',
+      success: function(message) {
+        sessionStorage.removeItem('projectOnDelete');
+        generateMyPortfolios();
+      },
+      error: function(err) {
+        console.log(err);
+      }
+    });
+  }
+
+  function abortDeleteProject(e) {
+    let contentWrapper = e.path[2];
+    let projectId = sessionStorage.getItem('projectOnDelete');
+
+    contentWrapper.innerHTML = `
+    <div class="portfolioPage-buttonGroup">
+        <div class="button viewMoreButton btn-font" id="${projectId}">View</div>
+        <div class="button-black editButton btn-font" id="edit${projectId}">Edit</div>
+    </div>
+    <div class="button-red deleteButton btn-font" id="delete${projectId}">Delete</div>
+    `;
+
+    let viewMoreButtons = document.getElementsByClassName('viewMoreButton');
+
+    for (let i = 0; i < viewMoreButtons.length; i++) {
+      viewMoreButtons[i].addEventListener('click', getArtworkInfo);
+    }
+
+    let editButtons = document.getElementsByClassName('editButton');
+
+    for (let i = 0; i < editButtons.length; i++) {
+      editButtons[i].addEventListener('click', prefillUpdateProjectForm);
+    }
+
+    let deleteButtons = document.getElementsByClassName('deleteButton');
+
+    for (let i = 0; i < deleteButtons.length; i++) {
+      deleteButtons[i].addEventListener('click', displayDeletePopup);
+    }
+    
+
   }
 
   function generateViewMoreHTML(portfolio) {
@@ -541,6 +767,7 @@ function makePortfolioCards(arr) {
 
   function generateCommentsHTML(comments) {
     let currentUser = sessionStorage.getItem('usersName');
+    console.log(comments);
     for (let i = 0; i < comments.length; i++) {
       if (currentUser && (comments[i].postByUsername === currentUser)) {
         document.getElementById('viewMorePage-comments').innerHTML += `
@@ -577,6 +804,7 @@ function makePortfolioCards(arr) {
       url: `${url}/filterPortfolios/${minPrice}/${maxPrice}/${category}`,
       type: 'GET',
       success: function(response) {
+        console.log(response);
         if (response === 'Sorry, there is no artwork that matches your search!') {
           document.getElementById('artsDeck').innerHTML = `
           <div class="noResultText-wrapper">
@@ -600,7 +828,7 @@ function makePortfolioCards(arr) {
     let _date = Date.now();
     let _portfolioID = sessionStorage.getItem('currentPortfolio');
     let _userID = sessionStorage.getItem('memberId');
-    let _username = sessionStorage.getItem('usersName');
+    let _username = sessionStorage.getItem('username');
 
     $.ajax({
       url: `${url}/addComment`,
