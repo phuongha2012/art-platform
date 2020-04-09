@@ -768,7 +768,9 @@ function makePortfolioCards(arr) {
   }
 
   function generateCommentsHTML(comments) {
+    document.getElementById('viewMorePage-comments').removeChild();
     let currentUser = sessionStorage.getItem('username');
+
     for (let i = 0; i < comments.length; i++) {
       if (currentUser && (comments[i].postByUsername === currentUser)) {
         document.getElementById('viewMorePage-comments').innerHTML += `
