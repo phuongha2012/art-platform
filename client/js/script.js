@@ -1,4 +1,6 @@
 $(document).ready(function(){
+  sessionStorage.clear();
+  console.log(sessionStorage);
   var url = "https://artful-nz.herokuapp.com";
   generateLandingPageCards();
 
@@ -6,13 +8,13 @@ $(document).ready(function(){
 // Yanas code
 
 //check if there is any session sessionStorage
-if (sessionStorage.usersName) {
+if (sessionStorage.username) {
   // buttons
   $('#logoutBtn').show();
   $('#myPortfolioBtn').show();
   $('#loginBtn').hide();
   $('#signUpBtn').hide();
-  showMemberName(sessionStorage.usersName);
+  showMemberName(sessionStorage.username);
   // pages
   $('#landingPage').show();
   $('#viewMorePage').hide();
