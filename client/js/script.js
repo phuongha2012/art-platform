@@ -654,7 +654,6 @@ function makePortfolioCards(arr) {
           `;
           return;
         }
-        generateCommentsHTML(portfolio[0].comments);
       },
       error: function(error) {
         console.log('Error: ' + error);
@@ -731,14 +730,55 @@ function makePortfolioCards(arr) {
     for (let i = 0; i < deleteButtons.length; i++) {
       deleteButtons[i].addEventListener('click', displayDeletePopup);
     }
-
-
   }
 
   function generateViewMoreHTML(portfolio) {
+    let currentUser = sessionStorage.getItem('username');
+    let commentsHTML;
+    let addCommentHTML;
 
-    document.getElementById('viewMorePage-artInfo').innerHTML = `
-    <div>
+    commentsHTML = portfolio.comments.map(function(item) {
+      if (currentUser && (item.postByUsername === currentUser)) {
+        return `
+          <div class="col-sm-12 col-lg-12 col-md-10">
+            <div class="comment-container comment-right mb-3">
+                <div class="comment-info">
+                <strong class="mr-1">You</strong>
+                <p>on ${formatDate(item.posted)}</p>
+              </div>
+              <p><b>${item.text}</b></p>
+            </div>
+          </div>
+        `;
+      } else if (item.postByUsername !== currentUser) {
+        return `
+          <div class="col-sm-12 col-lg-12 col-md-10">
+            <div class="comment-container comment-left mb-3">
+              <div class="comment-info">
+                <strong class="mr-1">${item.postByUsername}</strong>
+                <p>on ${formatDate(item.posted)}</p>
+              </div>
+              <p>${item.text}</p>
+            </div>
+          </div>
+        `;
+      }
+    }).join(' ');
+
+    addCommentHTML = currentUser ? `
+      <div class="col-12 col-sm-12 col-lg-10 col-md-10 mx-auto">
+        <label for="viewMorePage-postComment" class="nav-font">Comment:</label>
+        <textarea id="viewMorePage-postComment" class="col-12 col-sm-12 col-lg-10 col-md-10" rows="4" cols="100"></textarea>
+        <div class="col-12 col-sm-12 col-lg-11 col-md-11">
+            <div id="viewMorePage-postCommentButton" class="button btn-font bg-dark float-right mt-2 mb-5">Submit</div>
+        </div>
+      </div>
+    ` : `
+      <div class="text-center mb-5">Please log in to add comment</div>
+    `;
+
+    document.getElementById('viewMorePage').innerHTML = `
+    <div id="viewMorePage-artInfo">
     <h5 class="h3">${portfolio.title}</h5>
     <div class="viewMore-photoBackground">
     <img src="${portfolio.image}" class="viewMore-mainPhoto" alt="${portfolio.title} photo">
@@ -757,6 +797,29 @@ function makePortfolioCards(arr) {
     </div>
     <button id="backToLanding" type="button" class="btn btn-dark mt-3 mb-5 btn-font radius">Back</button>
     </div>
+    <div class="bg-light pt-5">
+    <div class="row mx-auto">
+        <div class="col-12 mb-5">
+          <h5 class="text-center">Questions About This Artwork</h5>
+        </div>
+        <div class="col-8 mx-auto">
+
+          <div id="viewMorePage-comments" class="mb-5">
+            ${commentsHTML}
+          </div>
+
+        </div>
+      </div>
+    
+    <div class="row mx-auto">
+      <div class="col-12 mb-4 mt-3">
+        <h5 class="text-center">Ask the Artist a Question</h5>
+      </div>
+      <div id="viewMorePage-addCommentWrapper" class="row mx-auto">
+        ${addCommentHTML}
+      </div>
+    </div>
+    </div>
     `;
     $('html, body').animate({ scrollTop: 0 }, 'fast');
 
@@ -765,57 +828,12 @@ function makePortfolioCards(arr) {
       $("#landingPage").show();
       sessionStorage.removeItem('currentPortfolio');
     });
-  }
+    
+    let viewMorePageNode = document.getElementById('viewMorePage');
 
-  function generateCommentsHTML(comments) {
-    document.getElementById('viewMorePage-comments').removeChild();
-    let currentUser = sessionStorage.getItem('username');
-
-    for (let i = 0; i < comments.length; i++) {
-      if (currentUser && (comments[i].postByUsername === currentUser)) {
-        document.getElementById('viewMorePage-comments').innerHTML += `
-          <div class="col-sm-12 col-lg-12 col-md-10">
-            <div class="comment-container comment-right mb-3">
-            <div class="comment-info">
-            <strong class="mr-1">You</strong>
-            <p>on ${formatDate(comments[i].posted)}</p>
-            </div>
-            <p><b>${comments[i].text}</b></p>
-            </div>
-        </div>
-        `;
-      } else if (comments[i].postByUsername !== currentUser) {
-        document.getElementById('viewMorePage-comments').innerHTML += `
-        <div class="col-sm-12 col-lg-12 col-md-10">
-        <div class="comment-container comment-left mb-3">
-        <div class="comment-info">
-        <strong class="mr-1">${comments[i].postByUsername}</strong>
-        <p>on ${formatDate(comments[i].posted)}</p>
-        </div>
-        <p>${comments[i].text}</p>
-        </div>
-        </div>
-        `;
-      }
+    if (viewMorePageNode.contains(document.getElementById('viewMorePage-postCommentButton'))) {
+      document.getElementById('viewMorePage-postCommentButton').addEventListener('click', postComment);
     }
-
-    if(currentUser) {
-      document.getElementById('viewMorePage-addCommentWrapper').innerHTML = `
-      <div class="col-12 col-sm-12 col-lg-10 col-md-10 mx-auto">
-      <label for="viewMorePage-postComment" class="nav-font">Comment:</label>
-      <textarea id="viewMorePage-postComment" class="col-12 col-sm-12 col-lg-10 col-md-10" rows="4" cols="100"></textarea>
-      <div class="col-12 col-sm-12 col-lg-11 col-md-11">
-          <div id="viewMorePage-postCommentButton" class="button btn-font bg-dark float-right mt-2 mb-5">Submit</div>
-      </div>
-    </div>
-      `;
-    } else if (!currentUser) {
-      document.getElementById('viewMorePage-addCommentWrapper').innerHTML = `
-      <div class="text-center mb-5">Please log in to add comment</div>
-      `;
-    }
-
-    document.getElementById('viewMorePage-postCommentButton').addEventListener('click', postComment);
   }
 
   document.getElementById("filterButton").addEventListener('click', getFilteredArtworks);

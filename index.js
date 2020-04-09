@@ -132,29 +132,6 @@ app.get('/allPortfolios', (req,res) => {
 });
 // Yanas code
 
-// update portfolios ==========================================================
-
-// app.patch('/updatePortfolio/:id', (req, res) => {
-//   const idParam = req.params.id;
-
-//   Portfolio.findById(idParam, (err, portfolio) => {
-//     const updatedPortfolio = {
-//       title : req.body.title,
-//       description : req.body.description,
-//       image : req.body.image,
-//       category : req.body.category,
-//       price : req.body.price,
-//       memberId : req.body.memberId
-//     };
-
-//   Portfolio.updateOne({ _id: idParam }, updatedPortfolio)
-//               .then(result => {
-//                     res.send(result);
-//                     })
-//               .catch(err=> res.send(err));
-//   }).catch(err=>res.send('not found'));
-// });
-
 // delete portfolios ==========================================================
 
 app.delete('/deletePortfolio/:id',(req,res)=>{
