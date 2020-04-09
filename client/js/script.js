@@ -771,7 +771,6 @@ function makePortfolioCards(arr) {
     for (let i = 0; i < comments.length; i++) {
       if (currentUser && (comments[i].postByUsername === currentUser)) {
         document.getElementById('viewMorePage-comments').innerHTML += `
-
           <div class="col-sm-12 col-lg-12 col-md-10">
             <div class="comment-container comment-right mb-3">
             <div class="comment-info">
@@ -807,14 +806,13 @@ function makePortfolioCards(arr) {
       </div>
     </div>
       `;
-
-      document.getElementById('viewMorePage-postCommentButton').addEventListener('click', postComment);
-
     } else if (!currentUser) {
       document.getElementById('viewMorePage-addCommentWrapper').innerHTML = `
       <div class="text-center mb-5">Please log in to add comment</div>
       `;
     }
+
+    document.getElementById('viewMorePage-postCommentButton').addEventListener('click', postComment);
   }
 
   document.getElementById("filterButton").addEventListener('click', getFilteredArtworks);
