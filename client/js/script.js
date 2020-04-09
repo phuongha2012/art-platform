@@ -802,7 +802,7 @@ function makePortfolioCards(arr) {
         <div class="col-12 mb-5">
           <h5 class="text-center">Questions About This Artwork</h5>
         </div>
-        <div class="col-8 mx-auto">
+        <div class="col-sm-12 col-md-8 mx-auto">
 
           <div id="viewMorePage-comments" class="mb-5">
             ${commentsHTML}
