@@ -1,24 +1,6 @@
-
-
 $(document).ready(function(){
   var url = "https://artful-nz.herokuapp.com";
   generateLandingPageCards();
-  
-  // get url and port from config.json
-  // $.ajax({
-  //   url :'config.json',
-  //   type :'GET',
-  //   dataType :'json',
-  //   success : function(configData){
-  //     url = configData.SERVER_URL + ":" + configData.SERVER_PORT;
-  //     generateLandingPageCards();
-  //   },
-  //   error:function(){
-  //     console.log('error: cannot call api');
-  //   }
-  // });
-
-
 
 // Show and hide pages ===============================================================
 // Yanas code
@@ -178,7 +160,6 @@ $('#viewMembersBtn').click(function(){
     type : 'GET',
     dataType : 'json',
     success : function(membersFromMongo){
-      console.log(membersFromMongo);
       $('#membersCards').empty();
       document.getElementById('membersCards').innerHTML +=
       '<h2 class="pt-5 pb-4">All Members</h2>';
@@ -214,10 +195,12 @@ $('#registerForm').submit(function(){
       password : password
     },
     success : function(member){
-      if (member !== 'Username already taken. Please try another one') {
-        alert ('Please login to add artwork and buy art');
+      if (member !== 'Members name is already taken. Please choose another name') {
+        alert ('Your account has been created, please login to activate your account');
         $('#loginBtn').show();
         $('#registerBtn').hide();
+        $('#loginPage').show();
+        $('#signUpPage').hide();
       } else {
         alert('Username already taken. Please try another one');
         $('#registerUsername').val('');
@@ -235,7 +218,7 @@ $('#registerForm').submit(function(){
 // login member ===============================================================
 // Yanas code
 
-$('#loginSubmitBtn').click(function(){
+$('#loginForm').submit(function(){
   event.preventDefault();
   let username = $('#inputUsernameLogin').val();
   let password = $('#inputPasswordLogin').val();
@@ -248,7 +231,7 @@ $('#loginSubmitBtn').click(function(){
       password : password
     },
     success : function(loginData){
-      if (loginData === 'Please fill in all input fields') {
+      if (loginData === ' ') {
         alert('Please fill in all input fields');
       } else if (loginData === 'Member not found. Please register') {
         alert('Register please');
@@ -299,7 +282,6 @@ $('#addPortfolioForm').submit(function(){
   let category = $('#addPortfolioCategory').val();
   let price = $('#addPortfolioPrice').val();
   let _memberId = sessionStorage.getItem('memberId');
-  console.log(_memberId);
 
   if (title == '' || description == '' || image == '' || category == '' || price == ''){
     alert('Please enter all details');
@@ -316,7 +298,7 @@ $('#addPortfolioForm').submit(function(){
         memberId : _memberId
       },
       success : function(portfolio){
-        if (portfolio !== 'Title taken already, please try another one') {
+        if (portfolio !== 'Artwork already added') {
           alert('Added the portfolio');
         } else {
           alert('Title taken already, please try another one');
@@ -392,7 +374,6 @@ function generateMyPortfolios() {
     url: `${url}/myPortfolios/${currentUserId}`,
     type: 'GET',
     success: function(results) {
-      console.log(results);
       if (results === "No portfolio by this user found") {
         document.getElementById('myProjectCards').innerHTML = `
         <div class="noPortfolio text-center">You have not upload any project yet!</div>
@@ -426,6 +407,10 @@ function getMyAccountInfo() {
 }
 
 function generateAccountSummaryHTML(account) {
+  let _description = account.about ? account.about : "";
+  let _website = account.website ? account.website : "";
+  let _location = account.location ? account.location : "";
+
   document.getElementById('memberAccount').innerHTML = `
   <div class="flexContainer-flexStart mb-1">
     <strong class="userInfoField">Username:</strong>
@@ -437,15 +422,15 @@ function generateAccountSummaryHTML(account) {
   </div>
   <div class="flexContainer-flexStart mb-1">
     <strong class="userInfoField">About:</strong>
-    <div>${account.about}</div>
+    <div>${_description}</div>
   </div>
   <div class="flexContainer-flexStart mb-1">
     <strong class="userInfoField">Location:</strong>
-    <div>${account.location}</div>
+    <div>${_location}</div>
   </div>
   <div class="flexContainer-flexStart mb-1">
     <strong class="userInfoField">Website:</strong>
-    <a>${account.website}</a>
+    <a>${_website}</a>
   </div>
   `;
 }
@@ -453,7 +438,6 @@ function generateAccountSummaryHTML(account) {
 document.getElementById('updateMemberBtn').addEventListener('click', showEditUserForm);
 
 function showEditUserForm() {
-  console.log(sessionStorage);
   $('#updateMemberBtn').hide();
   makeEditUserForm();
   populateEditUserForm();
@@ -461,17 +445,23 @@ function showEditUserForm() {
 
 // Prefill form's value with current user info
 function populateEditUserForm() {
-  let _username = sessionStorage.getItem('username');
-  let _email = sessionStorage.getItem('email');
-  let _description = ((sessionStorage.getItem('about')) !== "undefined") ? (sessionStorage.getItem('about')) : "";
-  let _website = ((sessionStorage.getItem('website')) !== "undefined") ? (sessionStorage.getItem('website')) : "";
-  let _location = ((sessionStorage.getItem('location')) !== "undefined") ? (sessionStorage.getItem('location')) : "";
+  let currentUserId = sessionStorage.getItem('memberId');
 
-  $('#editUserForm__username').val(_username);
-  $('#editUserForm__email').val(_email);
-  $('#editUserForm__description').val(_description);
-  $('#editUserForm__website').val(_website);
-  $('#editUserForm__location').val(_location);
+  $.ajax({
+    url: `${url}/myAccountInfo/${currentUserId}`,
+    type: 'GET',
+    dataType: 'json',
+    success: function(result) {
+      $('#editUserForm__username').val(result.username);
+    $('#editUserForm__email').val(result.email);
+    $('#editUserForm__description').val(result.about);
+    $('#editUserForm__website').val(result.website);
+    $('#editUserForm__location').val(result.location);
+    },
+    error: function(error) {
+      console.log(error);
+    }
+  });
 }
 
 function makeEditUserForm() {
@@ -498,11 +488,11 @@ function makeEditUserForm() {
       <input type="text" class="form-control col-md-9" id="editUserForm__website">
     </div>
     <button class="btn btn-danger btn-font back-portfolio radius float-left mb-5">Cancel</button>
-    <button id="saveUserInfo" type="submit" class="button float-right mb-5">Save</button>
+    <button id="saveUserInfo" type="submit" class="float-right mb-5 btn btn-dark btn-font radius">Save</button>
   </form>
   `;
   document.getElementById('editUserForm').addEventListener('submit', updateUser);
-  
+
 }
 
 function updateUser(e) {
@@ -551,15 +541,19 @@ function generateLandingPageCards() {
 function makePortfolioCards(arr) {
   document.getElementById('myProjectCards').innerHTML = arr.map(item => `
     <div class="card portfolioCard border-bottom">
-    <div style="background-image:url(${item.image})" class="portfolioPage-image mb-3"></div>
-    <h5 class="card-text mb-3">${item.title}</h5>
-    <div class="portfolioPage-buttonsWrapper">
-    <div class="portfolioPage-buttonGroup">
-        <div class="button viewMoreButton btn-font" id="${item._id}">View</div>
-        <div class="button-black editButton btn-font" id="edit${item._id}">Edit</div>
-    </div>
-    <div class="button-red deleteButton btn-font" id="delete${item._id}">Delete</div>
-    </div>
+      <div style="background-image:url(${item.image})" class="portfolioPage-image"></div>
+      <h5 class="portfolioPage-cardTitle card-text mb-3">${item.title}</h5>
+      <div id="portfolioCard__buttonWrapper${item._id}" class="row mb-2">
+        <div class="col-sm-12 col-md-4 col-lg-4">
+          <div class="button viewMoreButton btn-font mb-3" id="${item._id}">View</div>
+        </div>
+        <div class="col-sm-12 col-md-4 col-lg-4">
+          <div class="editButton btn-dark btn-font radius py-2 px-2 mb-3" id="edit${item._id}">Edit</div>
+        </div>
+        <div class="col-sm-12 col-md-4 col-lg-4">
+          <div class="deleteButton btn-red radius px-3 py-2 mb-3 btn-font float-lg-right" id="delete${item._id}">Delete</div>
+        </div>
+      </div>
     </div>
     `).join(' ');
 
@@ -618,7 +612,7 @@ function makePortfolioCards(arr) {
 
       <div class="card-body artcard-body mx-1 my-1">
       <div class="artcard-columnwrap">
-      <h4 class="card-title artcard-title mb-3">${art.title}</h4>
+      <h4 class="card-title mb-3">${art.title}</h4>
       <h5 class="card-title artcard-price">&dollar;${art.price}</h5>
       </div>
       <p class="card-title"><b>${art.authorInfo.username}, ${art.authorInfo.location}</b></p>
@@ -655,7 +649,7 @@ function makePortfolioCards(arr) {
         $("#landingPage").hide();
         if (portfolio[0].comments.length === 0) {
           document.getElementById('viewMorePage-comments').innerHTML = `
-          <div class="text-center">There has not been any question about this artwork</div>
+          <div id="noCommentNote" class="text-center">There has not been any question about this artwork</div>
           `;
           return;
         }
@@ -667,17 +661,19 @@ function makePortfolioCards(arr) {
     });
   }
 
-  function displayDeletePopup(e) {
-    let projectCard = e.path[2].children[2];
+  function displayDeletePopup(e) {   
     let projectId = (e.target.id).slice(6);
     sessionStorage.setItem('projectOnDelete', projectId);
 
-    projectCard.innerHTML = `
-        <div>
+    let idName = `portfolioCard__buttonWrapper${projectId}`;
+    let buttonWrapper = document.getElementById(idName);
+
+    buttonWrapper.innerHTML = `
+        <div class="mx-auto">
           <p class="text-center">Are you sure you want to delete this project?</p>
           <button id="abortDeleteProject" class="btn btn-danger btn-font back-portfolio radius float-left">Cancel</button>
-          <button id="confirmDeleteProject" type="button" class="button float-right">Delete</button>
-        </div> 
+          <button id="confirmDeleteProject" type="button" class="btn btn-dark btn-font float-right radius">Delete</button>
+        </div>
     `;
 
     document.getElementById('confirmDeleteProject').addEventListener('click', deleteProject);
@@ -701,15 +697,20 @@ function makePortfolioCards(arr) {
   }
 
   function abortDeleteProject(e) {
-    let contentWrapper = e.path[2];
     let projectId = sessionStorage.getItem('projectOnDelete');
-
-    contentWrapper.innerHTML = `
-    <div class="portfolioPage-buttonGroup">
-        <div class="button viewMoreButton btn-font" id="${projectId}">View</div>
-        <div class="button-black editButton btn-font" id="edit${projectId}">Edit</div>
-    </div>
-    <div class="button-red deleteButton btn-font" id="delete${projectId}">Delete</div>
+    let idName = `portfolioCard__buttonWrapper${projectId}`;
+    let buttonWrapper = document.getElementById(idName);
+    
+    buttonWrapper.innerHTML = `
+      <div class="col-sm-12 col-md-4 col-lg-4">
+        <div class="button viewMoreButton btn-font mb-3" id="${projectId}">View</div>
+      </div>
+      <div class="col-sm-12 col-md-4 col-lg-4">
+        <div class="editButton btn-dark btn-font radius py-2 px-2 mb-3" id="edit${projectId}">Edit</div>
+      </div>
+      <div class="col-sm-12 col-md-4 col-lg-4">
+        <div class="deleteButton btn-red radius px-3 py-2 mb-3 btn-font float-lg-right" id="delete${projectId}">Delete</div>
+      </div>
     `;
 
     let viewMoreButtons = document.getElementsByClassName('viewMoreButton');
@@ -729,7 +730,7 @@ function makePortfolioCards(arr) {
     for (let i = 0; i < deleteButtons.length; i++) {
       deleteButtons[i].addEventListener('click', displayDeletePopup);
     }
-    
+
 
   }
 
@@ -766,21 +767,24 @@ function makePortfolioCards(arr) {
   }
 
   function generateCommentsHTML(comments) {
-    let currentUser = sessionStorage.getItem('usersName');
-    console.log(comments);
+    let currentUser = sessionStorage.getItem('username');
     for (let i = 0; i < comments.length; i++) {
       if (currentUser && (comments[i].postByUsername === currentUser)) {
         document.getElementById('viewMorePage-comments').innerHTML += `
-        <div class="comment-container comment-right mb-3">
-        <div class="comment-info">
-        <strong class="mr-1">You</strong>
-        <p>on ${formatDate(comments[i].posted)}</p>
-        </div>
-        <p><b>${comments[i].text}</b></p>
+
+          <div class="col-sm-12 col-lg-12 col-md-10">
+            <div class="comment-container comment-right mb-3">
+            <div class="comment-info">
+            <strong class="mr-1">You</strong>
+            <p>on ${formatDate(comments[i].posted)}</p>
+            </div>
+            <p><b>${comments[i].text}</b></p>
+            </div>
         </div>
         `;
       } else if (comments[i].postByUsername !== currentUser) {
         document.getElementById('viewMorePage-comments').innerHTML += `
+        <div class="col-sm-12 col-lg-12 col-md-10">
         <div class="comment-container comment-left mb-3">
         <div class="comment-info">
         <strong class="mr-1">${comments[i].postByUsername}</strong>
@@ -788,8 +792,28 @@ function makePortfolioCards(arr) {
         </div>
         <p>${comments[i].text}</p>
         </div>
+        </div>
         `;
       }
+    }
+
+    if(currentUser) {
+      document.getElementById('viewMorePage-addCommentWrapper').innerHTML = `
+      <div class="col-12 col-sm-12 col-lg-10 col-md-10 mx-auto">
+      <label for="viewMorePage-postComment" class="nav-font">Comment:</label>
+      <textarea id="viewMorePage-postComment" class="col-12 col-sm-12 col-lg-10 col-md-10" rows="4" cols="100"></textarea>
+      <div class="col-12 col-sm-12 col-lg-11 col-md-11">
+          <div id="viewMorePage-postCommentButton" class="button btn-font bg-dark float-right mt-2 mb-5">Submit</div>
+      </div>
+    </div>
+      `;
+
+      document.getElementById('viewMorePage-postCommentButton').addEventListener('click', postComment);
+
+    } else if (!currentUser) {
+      document.getElementById('viewMorePage-addCommentWrapper').innerHTML = `
+      <div class="text-center mb-5">Please log in to add comment</div>
+      `;
     }
   }
 
@@ -804,11 +828,10 @@ function makePortfolioCards(arr) {
       url: `${url}/filterPortfolios/${minPrice}/${maxPrice}/${category}`,
       type: 'GET',
       success: function(response) {
-        console.log(response);
         if (response === 'Sorry, there is no artwork that matches your search!') {
           document.getElementById('artsDeck').innerHTML = `
-          <div class="noResultText-wrapper">
-          <h3 class="noResultText">Sorry, there is no artwork that matches your search!</h3>
+          <div class="row mx-auto">
+          <h5 class="text-center mt-5 mb-5">Sorry, there is no artwork that matches your search!</h5>
           </div>
           `;
         } else {
@@ -820,8 +843,6 @@ function makePortfolioCards(arr) {
       }
     });
   }
-
-  document.getElementById('viewMorePage-postCommentButton').addEventListener('click', postComment);
 
   function postComment() {
     let _content = $('textarea#viewMorePage-postComment').val();
@@ -864,14 +885,25 @@ function makePortfolioCards(arr) {
 
   function addComment(comment) {
     let commentHtml = `
-    <div class="comment-container mb-3">
-    <div class="comment-info">
-    <strong class="mr-1">You</strong>
-    <p>on ${formatDate(comment.posted)}</p>
-    </div>
-    <p>${comment.text}</p>
+
+    <div class="col-sm-12 col-lg-12 col-md-10">
+        <div class="comment-container comment-right mb-3">
+        <div class="comment-info">
+        <strong class="mr-1">You</strong>
+        <p>on ${formatDate(comment.posted)}</p>
+        </div>
+        <p><b>${comment.text}</b></p>
+        </div>
     </div>
     `;
+
+    let commentsContainer = document.getElementById('viewMorePage-comments');
+    let noCommentNote = document.getElementById('noCommentNote');
+
+    if (commentsContainer.contains(noCommentNote)) {
+      noCommentNote.remove();
+    }
+
     document.getElementById('viewMorePage-comments').innerHTML += commentHtml;
   }
 

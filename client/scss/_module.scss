@@ -29,6 +29,10 @@
 .border-blue
 {
 	border: 3px solid $blue;
+	  // Yanas responsive code
+	@media (max-width: $tablet) {
+		border: 0;
+	}
 }
 .border-gray
 {
@@ -38,6 +42,8 @@
 {
 	border: 3px solid $red;
 }
+// Yanas code ends
+
 // Hayley's code
 .logo {
   width: 200px;
@@ -88,4 +94,14 @@
 }
 
 // Hayley's code ends
+//  Yanas code
+.btn-red {
+  background-color: $red;
+  color: white;
+	cursor: pointer;
+  text-align: center;
 
+	:hover {
+		color: white;
+	}
+}

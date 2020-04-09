@@ -86,6 +86,11 @@ p {
   padding-left: 70px;
 }
 
+footer {
+  bottom: 0;
+  position: absolute;
+}
+
 .btn-font {
   font-family: 'Quicksand', sans-serif;
   font-weight: 700;
@@ -111,6 +116,11 @@ p {
 
 .border-blue {
   border: 3px solid #99cccc;
+}
+@media (max-width: 720px) {
+  .border-blue {
+    border: 0;
+  }
 }
 
 .border-gray {
@@ -168,86 +178,14 @@ p {
   text-align: center;
 }
 
-.btn-font {
-  font-family: 'Quicksand', sans-serif;
-  font-weight: 700;
-  text-align: center;
-}
-
-.nav-font {
-  font-family: 'Open Sans', sans-serif;
-  font-weight: 700;
-}
-
-.radius {
-  border-radius: 50px;
-}
-
-.bg-blue {
-  background-color: #99cccc;
-}
-
-.bg-cyan {
-  background-color: #339999;
-}
-
-.border-blue {
-  border: 3px solid #99cccc;
-}
-
-.border-gray {
-  border: 3px solid #cccccc;
-}
-
-.border-red {
-  border: 3px solid #FF9966;
-}
-
-.logo {
-  width: 200px;
-}
-
-.header {
-  align-items: center;
-  display: flex;
-  height: 10%;
-  justify-content: space-between;
-}
-
-.nav {
-  justify-content: space-evenly;
-  width: 300px;
-}
-
-.button {
-  background-color: #339999;
-  border-radius: 20px;
-  color: white;
-  cursor: pointer;
-  padding: 9px 15px;
-}
-
-.signInButton {
-  cursor: pointer;
-  padding: 6px 15px;
-}
-
-.button-red {
+.btn-red {
   background-color: #FF9966;
-  border-radius: 20px;
   color: white;
   cursor: pointer;
-  padding: 6px 15px;
   text-align: center;
 }
-
-.button-black {
-  background-color: #333333;
-  border-radius: 20px;
+.btn-red :hover {
   color: white;
-  cursor: pointer;
-  padding: 6px 15px;
-  text-align: center;
 }
 
 .container-form {
@@ -256,7 +194,7 @@ p {
   margin: 0 auto;
   width: 70%;
 }
-@media (max-width: 900px) {
+@media (max-width: 720px) {
   .container-form {
     width: 100%;
   }
@@ -268,8 +206,9 @@ p {
   margin: 0 auto;
   width: 60%;
 }
-@media (max-width: 900px) {
+@media (max-width: 720px) {
   .form-box {
+    height: 95vh;
     width: 100%;
   }
 }
@@ -343,12 +282,16 @@ p {
   width: 100px;
 }
 
+.portfolioPage-cardTitle {
+  margin: auto;
+}
+
 .landingPage-banner {
   background-image: url("../images/BarneyBrewsterBanner.jpg");
   background-size: cover;
   height: 50vh;
 }
-@media (max-width: 900px) {
+@media (max-width: 720px) {
   .landingPage-banner {
     background-repeat: no-repeat;
     height: 25vh;
@@ -421,18 +364,6 @@ p {
   color: #339999;
 }
 
-.noResultText-wrapper {
-  height: 40vh;
-  position: absolute;
-  width: 80vw;
-}
-
-.noResultText {
-  left: 35%;
-  position: relative;
-  top: 20%;
-}
-
 .nav-border {
   border-bottom: 4px solid #99cccc;
   width: 100%;
@@ -454,6 +385,12 @@ p {
 @media (max-width: 900px) {
   .card-img-top {
     height: 50vw;
+  }
+}
+
+@media (max-width: 720px) {
+  .logo {
+    width: 40%;
   }
 }
 

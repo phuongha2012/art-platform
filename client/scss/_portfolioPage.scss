@@ -1,12 +1,11 @@
 // Yanas code
 
-
 .container-form{
   background-color: white;
   height: 100vh;
   margin: 0 auto;
   width: 70%;
-  @media (max-width: 900px) {
+  @media (max-width: $tablet) {
     width: 100%;
 }
 }
@@ -16,11 +15,11 @@
   height: 85vh;
   margin: 0 auto;
   width: 60%;
-  @media (max-width: 900px) {
+  @media (max-width: $tablet) {
+    height: 95vh;
     width: 100%;
 }
 }
-
 
 .bg-page
 {
@@ -98,6 +97,10 @@
 
 .userInfoField {
   width: 100px;
+}
+
+.portfolioPage-cardTitle {
+  margin: auto;
 }
 
 // Hayley's code ends

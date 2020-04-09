@@ -3,7 +3,8 @@
   background-image: url('../images/BarneyBrewsterBanner.jpg');
   background-size: cover;
   height: 50vh;
-  @media (max-width: 900px) {
+  // Yanas responsive code
+  @media (max-width: $tablet) {
     background-repeat: no-repeat;
     height: 25vh;
   }
@@ -75,17 +76,6 @@
   color: $primary;
 }
 
-.noResultText-wrapper {
-  height: 40vh;
-  position: absolute;
-  width: 80vw;
-}
-
-.noResultText {
-  left: 35%;
-  position: relative;
-  top: 20%;
-}
 // Hayley's code ends
 
 // Yanas code
@@ -110,6 +100,12 @@
   width: 100%;
   @media (max-width: 900px) {
     height: 50vw;
+  }
+}
+
+.logo{
+  @media (max-width: $tablet) {
+    width: 40%;
   }
 }
 
