@@ -869,6 +869,8 @@ function makePortfolioCards(arr) {
     let _portfolioID = sessionStorage.getItem('currentPortfolio');
     let _userID = sessionStorage.getItem('memberId');
     let _username = sessionStorage.getItem('username');
+    console.log(sessionStorage);
+    console.log(_userID, _portfolioID);
 
     $.ajax({
       url: `${url}/addComment`,
