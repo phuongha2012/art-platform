@@ -1,6 +1,5 @@
 $(document).ready(function(){
   sessionStorage.clear();
-  console.log(sessionStorage);
   var url = "https://artful-nz.herokuapp.com";
   generateLandingPageCards();
 
