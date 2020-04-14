@@ -16,6 +16,25 @@
 	border-radius: 50px;
 }
 
+.btn-red {
+  background-color: $red;
+  color: white;
+	cursor: pointer;
+  text-align: center;
+
+	:hover {
+		color: white;
+	}
+}
+
+.edit-button {
+  background-color: $gray-dark;
+  border-radius: 20px;
+  color: white;
+  cursor: pointer;
+  padding: 9px 15px;
+}
+
 // background colours
 .bg-blue
 {
@@ -42,6 +61,7 @@
 {
 	border: 3px solid $red;
 }
+
 // Yanas code ends
 
 // Hayley's code
@@ -94,14 +114,3 @@
 }
 
 // Hayley's code ends
-//  Yanas code
-.btn-red {
-  background-color: $red;
-  color: white;
-	cursor: pointer;
-  text-align: center;
-
-	:hover {
-		color: white;
-	}
-}

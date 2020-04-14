@@ -8,26 +8,34 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans|Quicksand&display=swap">
   <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="">
-  <!-- <link href="css/style.css" rel="stylesheet"> -->
-  <link href="css/style.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <!-- <link href="css/style.min.css" rel="stylesheet"> -->
 
 </head>
 <body>
-  <!-- Hayley's code -->
-  <!-- Landing Page -->
+  <!-- Yana and Hayley code -->
   <div class="header nav-border px-3 py-3">
-    <img src="images/logo.png" id="homeBtn" class="logo" alt="logo">
+    <img src="images/logo.png" class="logo home-btn" alt="logo">
     <div class="nav">
-      <div id="signUpBtn" class="nav-font py-2 px-3 bg-dark text-white radius">Sign Up!</div>
-      <div id="loginBtn" class="signInButton nav-font">Login</div>
-      <div id="memberName" class="mr-3 pt-2">
-      </div>
-      <button id="myPortfolioBtn" class="nav-font btn btn-dark py-2 px-2 radius">My Portfolio</button>
-      <div class="signOutButton nav-font py-2 px-2">
-        <a id="logoutBtn">Logout</a>
-      </div>
+      <li class="nav-item">
+        <a class="nav-link nav-font py-2 px-2 home-btn text-dark" href="#">Home</a>
+      </li>
+      <li class="nav-item">
+        <div id="signUpBtn" class="nav-font py-2 px-3 btn btn-dark text-white radius">Sign Up!</div>
+      </li>
+      <li class="nav-item">
+        <a id="loginBtn" class="nav-link nav-font signInButton text-dark" href="#">Login</a>
+      </li>
+      <li class="nav-item">
+        <button id="myPortfolioBtn" class="nav-font btn btn-dark py-2 px-2 radius">My Portfolio</button>
+      </li>
+      <li class="nav-item">
+        <a id="logoutBtn" class="nav-link nav-font py-2 px-2 text-dark" href="#">Logout</a>
+      </li>
     </div>
   </div>
+  <!-- Hayley's code -->
+  <!-- Landing Page -->
   <div id="landingPage">
     <div class="landingPage-banner">
     </div>
@@ -67,27 +75,24 @@
   <!-- Hayley's code ends -->
 
   <!-- Yanas code -->
-  <!-- project page -->
-  <div id="projectPage">
-    <div class="container">
-      <h1 class="text-center mt-4 mb-5">Account</h1>
-      <div class="mb-5 mt-3 py-5 px-5 border-gray radius col-lg-9 col-md-12 col-sm-12 mx-auto">
-        <div id="memberAccount">
+  <!-- Project page -->
+    <div id="projectPage">
+      <div class="container">
+        <div id="memberName"></div>
+        <div class="mb-5 mt-3 py-5 px-5 border-gray radius col-lg-9 col-md-12 col-sm-12 mx-auto">
+          <div id="memberAccount">
+          </div>
+          <button id="updateMemberBtn" name="updateMemberBtn" class="btn btn-dark btn-font float-right radius">Edit</button>
         </div>
-        <button id="updateMemberBtn" name="updateMemberBtn" class="btn btn-dark btn-font float-right radius">Edit</button>
+        <h2 class="text-center mb-5">New Project</h2>
+        <div class="mb-5 mt-3 pb-4 border-blue radius col-lg-10 col-md-10 col-sm-10 mx-auto text-center">
+          <img src="images/upload-icon.png" alt="Upload project icon" class="mx-auto border-0 pb-4" ><br>
+          <button id="addPortfolio" name="addPortfolio" type="submit" class="btn btn-dark btn-font py-3 px-3 radius">Upload Project</button>
+        </div>
+        <h2 class="text-center mb-5">My Portfolio</h2>
+        <div id="myProjectCards"></div>
       </div>
-      <h2 class="text-center mb-5">New Project</h2>
-      <div class="mb-5 mt-3 pb-4 border-blue radius col-lg-10 col-md-10 col-sm-10 mx-auto text-center">
-        <img src="images/upload-icon.png" alt="Upload project icon" class="mx-auto border-0 pb-4" ><br>
-        <button id="addPortfolio" name="addPortfolio" type="submit" class="btn btn-dark btn-font py-3 px-3 radius">Upload Project</button>
-      </div>
-      <h2 class="text-center mb-5">My Portfolio</h2>
-
-      <div id="myProjectCards"></div>
-
-    </div>
-  </div> <!-- Project page ends -->
-
+    </div> <!-- Project page ends -->
   <!-- ================================================================================ -->
   <!-- Add project form -->
   <div id="uploadPortfolioPage" class="bg-page bg-upload">
@@ -123,10 +128,6 @@
             <input type="number" id="addPortfolioPrice" class="form-control rounded" placeholder="Price" name="addPortfolioPrice" required>
           </div>
         </div>
-        <!-- <div class="form-group col-12">
-        <label for="addPortfolioMemberId"><h5>Member ID</h5></label>
-        <input type="text" id="addPortfolioMemberId" class="rounded radius" placeholder="MemberID" name="addPortfolioMemberId" required autofocus>
-      </div> -->
       <button id="addPortfolioBtn" name="addPortfolioButton" type="submit" class="btn btn-dark btn-font float-right radius">Submit</button>
       <button name="addPortfolioButton" type="submit" class="btn mb-3 btn-danger btn-font float-left back-portfolio radius">Cancel</button><br>
     </form>
@@ -194,7 +195,6 @@
           <label class="h5-label" for="registerPassword">Password</label>
           <input type="password" autocomplete="new-password" name="registerPassword" class="form-control rounded" placeholder="Password" id="registerPassword" required autofocus>
           <div id="errorPassword">
-
           </div>
         </div>
         <div class="text-center">
@@ -208,7 +208,7 @@
 <!-- login page -->
 <div id="loginPage">
   <div class="row">
-    <div class="col-lg-5 col-md-6 col-sm-12">
+    <div class="col-lg-5 col-md-6 d-none d-md-block">
       <img src="images/KateLeslie_ThePunk.jpg" alt="Kate Leslie Artist, The Punk" class="img-fluid">
     </div>
     <div class="col-lg-7 col-md-6 col-sm-12 pt-5">
@@ -227,17 +227,13 @@
         </div>
       </form>
     </div>
+    <div class="col-sm-12 d-block d-md-none">
+      <img src="images/KateLeslie_ThePunk.jpg" alt="Kate Leslie Artist, The Punk" class="img-fluid">
+    </div>
   </div>
 </div>
-<!-- Yanas code ends -->
 
-
-
-
-
-
-
-<footer class="navbar bg-cyan">
+<footer class="navbar bg-cyan d-none d-md-block">
   <div class="row mx-auto">
     <div class="col-12 col-lg-12 col-sm-12 mt-3">
       <div class="text-center">
@@ -247,6 +243,8 @@
     </div>
   </div>
 </footer>
+
+<!-- Yanas code ends -->
 
 <script src="node_modules/jquery/dist/jquery.min.js"></script>
 <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>

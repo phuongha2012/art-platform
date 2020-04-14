@@ -4,7 +4,7 @@
   background-size: cover;
   height: 50vh;
   // Yanas responsive code
-  @media (max-width: $tablet) {
+  @media (max-width: $desktop) {
     background-repeat: no-repeat;
     height: 25vh;
   }
@@ -98,14 +98,16 @@
   height: 20vw;
   object-fit: cover;
   width: 100%;
-  @media (max-width: 900px) {
-    height: 50vw;
+  @media (max-width: $tablet) {
+    height: 100%;
+    width: 100%;
   }
 }
 
 .logo{
   @media (max-width: $tablet) {
-    width: 40%;
+    margin-right: 10%;
+    width: 35%;
   }
 }
 
