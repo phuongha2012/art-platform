@@ -40,7 +40,7 @@
             <div class="landingPage-banner"></div>
             <div class="filterDropdown row">
               <div class="input-group col-12 col-sm-12 col-md-3 col-lg-3">
-                <select class="custom-select filterInputGroup mx-2 my-2" id="filterDropdown-byPrice">
+                <select id="filterDropdown-byPrice" class="custom-select filterInputGroup mx-2 my-2">
                   <option value='{"min":0,"max":500000}' selected>Price</option>
                   <option value='{"min":0,"max":50}'>Under $50</option>
                   <option value='{"min":51,"max":150}'>From $51 to $150</option>
@@ -49,8 +49,8 @@
               </div>
 
               <!-- Filter dropdown -->
-              <div class="input-group col-12 col-sm-12 col-md-3 col-lg-3">
-                <select class="custom-select filterInputGroup mx-2 my-2" id="filterDropdown-byCategory">
+              <div id="filterDropdown-byCategory" class="input-group col-12 col-sm-12 col-md-3 col-lg-3">
+                <select class="custom-select filterInputGroup mx-2 my-2">
                   <option value="all" selected>Category</option>
                   <option value="Painting">Painting</option>
                   <option value="Photography">Photography</option>
@@ -58,7 +58,7 @@
                   <option value="Others">Others</option>
                 </select>
               </div>
-              <button class="bg-info btn nav-font px-3 mr-3 text-white radius" id="filterButton">Search</button>
+              <button id="filterButton" class="bg-info btn nav-font px-3 mr-3 text-white radius">Search</button>
             </div>
 
             <!-- Arts listing -->
@@ -124,14 +124,14 @@
                       <!-- Project image url -->
                       <div class="form-group">
                           <label class="h5-label" for="addPortfolioImage">Image URL</label>
-                          <input type="text" id="addPortfolioImage" class="form-control rounded" placeholder="Image URL" name="addPortfolioImage" required>
+                          <input id="addPortfolioImage" type="text" class="form-control rounded" placeholder="Image URL" name="addPortfolioImage" required>
                       </div>
                       <!-- Project category select -->
                       <div class="row mb-2">
                           <div class="form-group col-6">
                             <label class="h5-label" for="addPortfolioCategory">Category</label>
                             <div class="input-group">
-                              <select id="addPortfolioCategory" name="addPortfolioCategory" form="addPortfolioForm" class="custom-select filterInputGroup rounded">
+                              <select id="addPortfolioCategory" class="custom-select filterInputGroup rounded" name="addPortfolioCategory" form="addPortfolioForm">
                                 <option value="Painting">Painting</option>
                                 <option value="Photography">Photography</option>
                                 <option value="Prints">Prints</option>
@@ -142,11 +142,11 @@
                         <!-- Project price -->
                         <div class="form-group col-6">
                             <label class="h5-label" for="addPortfolioPrice">Price($)</label>
-                            <input type="number" id="addPortfolioPrice" class="form-control rounded" placeholder="Price" name="addPortfolioPrice" required>
+                            <input id="addPortfolioPrice" type="number" class="form-control rounded" placeholder="Price" name="addPortfolioPrice" required>
                         </div>
                       </div>
-                    <button id="addPortfolioBtn" name="addPortfolioButton" type="submit" class="btn btn-dark btn-font float-right radius">Submit</button>
-                    <button name="addPortfolioButton" type="submit" class="btn mb-3 btn-danger btn-font float-left back-portfolio radius">Cancel</button><br>
+                    <button id="addPortfolioBtn" class="btn btn-dark btn-font float-right radius" name="addPortfolioButton" type="submit">Submit</button>
+                    <button class="btn mb-3 btn-danger btn-font float-left back-portfolio radius" name="addPortfolioButton" type="submit">Cancel</button><br>
                 </form>
               <!-- Add project form ends -->
             </div>
@@ -163,7 +163,7 @@
                       <!-- Title -->
                       <div class="form-group">
                           <label class="h5-label" for="updatePortfolioTitle">Title</label>
-                          <input type="text" id="updatePortfolioTitle" class="form-control rounded" placeholder="Title" name="updatePortfolioTitle" required>
+                          <input id="updatePortfolioTitle" class="form-control rounded" type="text" placeholder="Title" name="updatePortfolioTitle" required>
                       </div>
 
                       <!-- Description -->
@@ -175,7 +175,7 @@
                       <!-- Image -->
                       <div class="form-group">
                           <label class="h5-label" for="updatePortfolioImage">Image URL</label>
-                          <input type="text" id="updatePortfolioImage" class="form-control rounded" placeholder="Image URL" name="updatePortfolioImage" required>
+                          <input id="updatePortfolioImage" class="form-control rounded" type="text" placeholder="Image URL" name="updatePortfolioImage" required>
                       </div>
 
                       <!-- Category -->
@@ -183,7 +183,7 @@
                         <div class="form-group col-6">
                             <label class="h5-label" for="updatePortfolioCategory">Category</label>
                             <div class="input-group">
-                                <select id="updatePortfolioCategory" name="updatePortfolioCategory" form="addPortfolioForm" class="custom-select filterInputGroup rounded">
+                                <select id="updatePortfolioCategory"  class="custom-select filterInputGroup rounded"name="updatePortfolioCategory" form="addPortfolioForm">
                                     <option value="Painting">Painting</option>
                                     <option value="Photography">Photography</option>
                                     <option value="Prints">Prints</option>
@@ -194,11 +194,11 @@
                         <!-- Price -->
                         <div class="form-group col-6">
                             <label class="h5-label" for="updatePortfolioPrice">Price($)</label>
-                            <input type="number" id="updatePortfolioPrice" class="form-control rounded" placeholder="Price" name="updatePortfolioPrice" required>
+                            <input id="updatePortfolioPrice" class="form-control rounded" type="number" placeholder="Price" name="updatePortfolioPrice" required>
                         </div>
                       </div>
-                    <button id="updatePortfolioBtn" name="updatePortfolioButton" type="submit" class="btn btn-dark btn-font float-right radius">Submit</button>
-                    <button name="updatePortfolioButton" type="submit" class="btn mb-3 btn-danger btn-font float-left back-portfolio radius">Cancel</button><br>
+                    <button id="updatePortfolioBtn" class="btn btn-dark btn-font float-right radius" name="updatePortfolioButton" type="submit">Submit</button>
+                    <button  class="btn mb-3 btn-danger btn-font float-left back-portfolio radius"name="updatePortfolioButton" type="submit">Cancel</button><br>
                 </form>
               <!-- Update project form ends -->
               </div>
@@ -216,21 +216,21 @@
                           <!-- Username -->
                           <div class="form-group">
                               <label class="h5-label" for="registerUsername">Username</label>
-                              <input type="text" name="registerUsername" class="form-control rounded" placeholder="Username" id="registerUsername" required>
+                              <input id="registerUsername" class="form-control rounded" type="text" name="registerUsername" placeholder="Username" required>
                           </div>
                           <!-- Email -->
                           <div class="form-group">
                               <label class="h5-label" for="registerEmail">Email</label>
-                              <input type="email" name="registerEmail" class="form-control rounded" placeholder="Email" id="registerEmail" required>
+                              <input id="registerEmail" class="form-control rounded" type="email" name="registerEmail" placeholder="Email" required>
                           </div>
                           <!-- Password -->
                           <div class="form-group">
                               <label class="h5-label" for="registerPassword">Password</label>
-                              <input type="password" autocomplete="new-password" name="registerPassword" class="form-control rounded" placeholder="Password" id="registerPassword" required autofocus>
+                              <input id="registerPassword" class="form-control rounded" type="password" autocomplete="new-password" name="registerPassword" placeholder="Password" required autofocus>
                               <div id="errorPassword"></div>
                           </div>
                           <div class="text-center">
-                              <button id="registerSubmit" name="registerButton" type="submit" class="mt-3 btn btn-dark btn-lg btn-font radius">Sign Up!</button>
+                              <button id="registerSubmit" class="mt-3 btn btn-dark btn-lg btn-font radius" name="registerButton" type="submit" >Sign Up!</button>
                           </div>
                       </form>
                   </div>
@@ -242,7 +242,7 @@
           <div id="loginPage">
               <div class="row">
                   <div class="col-lg-5 col-md-6 col-sm-12">
-                      <img src="images/KateLeslie_ThePunk.jpg" alt="Kate Leslie Artist, The Punk" class="img-fluid">
+                      <img src="images/KateLeslie_ThePunk.jpg" class="img-fluid" alt="Kate Leslie Artist, The Punk">
                   </div>
                   <div class="col-lg-7 col-md-6 col-sm-12 pt-5">
                       <form id="loginForm" class="mb-3">
@@ -251,18 +251,18 @@
                           <!-- Username -->
                           <div class="form-group col-lg-6 col-md-6 col-sm-12 mx-auto">
                               <label for="inputUsernameLogin" class="h3-label"> Username </label>
-                              <input type="text" id="inputUsernameLogin" name="loginUsername" placeholder="Username" class="form-control rounded" required>
+                              <input id="inputUsernameLogin" class="form-control rounded" type="text" name="loginUsername" placeholder="Username" required>
                           </div>
 
                           <!-- Password -->
                           <div class="form-group col-lg-6 col-md-6 col-sm-12 mx-auto">
                               <label for="inputPasswordLogin" class="h3-label"> Password </label>
-                              <input type="password" id="inputPasswordLogin" name="loginPassword" placeholder="Password" class="form-control rounded" required>
+                              <input id="inputPasswordLogin" class="form-control rounded" type="password" name="loginPassword" placeholder="Password" required>
                           </div>
 
                           <!-- Login button -->
                           <div class="text-center mb-5">
-                              <button id="loginSubmitBtn" name="button" type="submit" class="mt-5 mb-3 btn btn-dark btn-lg btn-font radius"> Login </button>
+                              <button id="loginSubmitBtn" class="mt-5 mb-3 btn btn-dark btn-lg btn-font radius" name="button" type="submit"> Login </button>
                           </div>
                       </form>
                   </div>
@@ -291,6 +291,6 @@
           <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
           <script src="js/script.js"></script>
           <!-- <script src="js/script.min.js"></script> -->
-          
+
     </body>
 </html>
