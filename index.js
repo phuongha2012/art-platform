@@ -6,12 +6,14 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const bcryptjs = require('bcryptjs');
 const keys = require('./config/keys');
+
 const Comment = require('./models/comment.js');
 const Member = require('./models/member.js');
 const Portfolio = require('./models/portfolio.js');
 
 const PORT = process.env.PORT || 3000;
 
+// CONNECT TO DATABASE WITH MONGOOSE
 const mongodbURI = `mongodb+srv://${keys.MONGO_USER}:${keys.MONGO_PASSWORD}@${keys.MONGO_CLUSTER_NAME}-tvmnw.mongodb.net/test?retryWrites=true&w=majority`;
 mongoose.connect(mongodbURI, {useNewUrlParser: true, useUnifiedTopology: true})
         .then(() => console.log('DB connected'))
@@ -20,29 +22,28 @@ mongoose.connect(mongodbURI, {useNewUrlParser: true, useUnifiedTopology: true})
         }
 );
 
-// test connection
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
   console.log('We are connected to MongoDB');
 });
 
-// connect endpoints
+// APP SET-UPS
 app.use((req, res, next) => {
   console.log(`${req.method} request for ${req.url}`);
   next();
 });
-
-// include body-parser, cors, bcryptjs
 app.use(express.static('client'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:false}));
-
 app.use(cors());
 
-// register a member ============================================================
-// Yanas code
 
+// ===================================================================================
+// ============================= YANA's code starts ==================================
+
+
+// Register a member
 app.post('/registerMember', (req,res) => {
   //checking if member is found in the db already
   Member.findOne({username:req.body.username},(err,memberResult)=> {
@@ -68,18 +69,14 @@ app.post('/registerMember', (req,res) => {
   });
 });
 
-// get all members =============================================================
-// Yanas code
-
+// Get all members
 app.get('/allMembers', (req,res) => {
   Member.find().then(result => {
     res.send(result);
   });
 });
 
-// login a member ==============================================================
-// Yanas code
-
+// Login a member
 app.post('/loginMember', (req,res) => {
   Member.findOne({username:req.body.username},(err,memberResult) => {
     if (memberResult){
@@ -95,9 +92,7 @@ app.post('/loginMember', (req,res) => {
 });
 
 
-// add an artwork to portfolio =================================================
-// Yanas code
-
+// Add an artwork to portfolio
 app.post('/addPortfolio', (req,res) => {
   //checking if portfolio is found in the db already
   Portfolio.findOne({title:req.body.title},(err,portfolioResult)=>{
@@ -121,19 +116,15 @@ app.post('/addPortfolio', (req,res) => {
   });
 });
 
-// get all portfolios ==========================================================
-// Yanas code
-
+// Get all portfolios
 app.get('/allPortfolios', (req,res) => {
   Portfolio.find().then(result => {
     console.log(result);
     res.json(result);
   });
 });
-// Yanas code
 
-// delete portfolios ==========================================================
-
+// Delete a project
 app.delete('/deletePortfolio/:id',(req,res)=>{
   const idParam = req.params.id;
   Portfolio.findOne({_id:idParam}, (err,portfolio)=>{
@@ -148,12 +139,14 @@ app.delete('/deletePortfolio/:id',(req,res)=>{
 });
 
 
-//  Yanas code ends
-// =============================================================================
+// =========================== YANA's code ends  =====================================
+// ===================================================================================
 
 
-// Hayley's code
+// ===================================================================================
+// =========================== HAYLEY's code starts ==================================
 
+// Update a member info
 app.patch('/updateMember/:id', (req, res) => {
   const _id = req.params.id;
   const updatedMember = {
@@ -174,6 +167,7 @@ app.patch('/updateMember/:id', (req, res) => {
         .catch(err => console.log(err));
 })
 
+// Update a project
 app.patch('/updatePortfolio/:id', (req, res) => {
   const _id = req.params.id;
   const updatedProject = {
@@ -201,6 +195,7 @@ app.patch('/updatePortfolio/:id', (req, res) => {
             .catch(err => res.send(err));
 })
 
+// Find and return a project
 app.get('/findProject/:id', (req, res) => {
   let _projectID = req.params.id;
 
@@ -208,6 +203,7 @@ app.get('/findProject/:id', (req, res) => {
                       (err, result) => { res.send(result); })
 })
 
+// Find and return a user's account information
 app.get('/myAccountInfo/:accountID', (req, res) => {
   let _memberId = req.params.accountID;
 
@@ -215,6 +211,7 @@ app.get('/myAccountInfo/:accountID', (req, res) => {
                   (err, result) => { res.send(result); })
 })
 
+// Find and return all projects that belong to a user
 app.get('/myPortfolios/:accountID', (req, res) => {
   let _memberId = req.params.accountID;
 
@@ -228,6 +225,7 @@ app.get('/myPortfolios/:accountID', (req, res) => {
   });
 });
 
+// Return all projects with corresponding author information
 app.get('/portfoliosAndAuthors', async (req, res) => {
   let query = await Portfolio.aggregate([
                                         { $lookup: {
@@ -241,6 +239,7 @@ app.get('/portfoliosAndAuthors', async (req, res) => {
   res.send(query);
 });
 
+// Return one project with corresponding author information
 app.get('/portfolioWithAuthor/:id', async (req, res) => {
   let artId = req.params.id;
   let query = await Portfolio.aggregate([
@@ -263,6 +262,7 @@ app.get('/portfolioWithAuthor/:id', async (req, res) => {
   res.send(query);
 });
 
+// Find and return all products that match with price and category filter
 app.get('/filterPortfolios/:minPrice/:maxPrice/:category', async (req, res) => {
   let _minPrice = parseInt(req.params.minPrice);
   let _maxPrice = parseInt(req.params.maxPrice);
@@ -300,6 +300,7 @@ app.get('/filterPortfolios/:minPrice/:maxPrice/:category', async (req, res) => {
   }
 })
 
+// Add a comment to post
 app.post('/addComment', (req, res) => {
   let comment = new Comment({
                             _id : new mongoose.Types.ObjectId,
@@ -316,6 +317,7 @@ app.post('/addComment', (req, res) => {
 })
 
 
-// Hayley's code ends
+// =========================== HAYLEY's code ends  ===================================
+// ===================================================================================
 
 app.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`))
