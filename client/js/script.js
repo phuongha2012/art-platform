@@ -375,16 +375,16 @@ function generateMyPortfolios() {
     url: `${url}/myPortfolios/${currentUserId}`,
     type: 'GET',
     success: function(results) {
-      if (results === "No portfolio by this user found") {
-        document.getElementById('myProjectCards').innerHTML = `
-        <div class="noPortfolio text-center">You have not upload any project yet!</div>
-        `;
-        return;
-      }
-      makePortfolioCards(results);
+          if (results === "No portfolio by this user found") {
+            document.getElementById('myProjectCards').innerHTML = 
+                `<div class="noPortfolio text-center">You have not upload any project yet!</div>`;
+            return;
+          }
+          
+          makePortfolioCards(results);
     },
     error: function(error) {
-      console.log(error);
+          console.log(error);
     }
   });
 }
@@ -399,10 +399,10 @@ function getMyAccountInfo() {
     type: 'GET',
     dataType: 'json',
     success: function(result) {
-      generateAccountSummaryHTML(result);
+          generateAccountSummaryHTML(result);
     },
     error: function(error) {
-      console.log(error);
+          console.log(error);
     }
   });
 }
@@ -412,28 +412,27 @@ function generateAccountSummaryHTML(account) {
   let _website = account.website ? account.website : "";
   let _location = account.location ? account.location : "";
 
-  document.getElementById('memberAccount').innerHTML = `
-  <div class="flexContainer-flexStart mb-1">
-    <strong class="userInfoField">Username:</strong>
-    <div>${account.username}</div>
-  </div>
-  <div class="flexContainer-flexStart mb-1">
-    <strong class="userInfoField">Email:</strong>
-    <div>${account.email}</div>
-  </div>
-  <div class="flexContainer-flexStart mb-1">
-    <strong class="userInfoField">About:</strong>
-    <div>${_description}</div>
-  </div>
-  <div class="flexContainer-flexStart mb-1">
-    <strong class="userInfoField">Location:</strong>
-    <div>${_location}</div>
-  </div>
-  <div class="flexContainer-flexStart mb-1">
-    <strong class="userInfoField">Website:</strong>
-    <a>${_website}</a>
-  </div>
-  `;
+  document.getElementById('memberAccount').innerHTML = 
+          `<div class="flexContainer-flexStart mb-1">
+              <strong class="userInfoField">Username:</strong>
+              <div>${account.username}</div>
+          </div>
+          <div class="flexContainer-flexStart mb-1">
+              <strong class="userInfoField">Email:</strong>
+              <div>${account.email}</div>
+          </div>
+          <div class="flexContainer-flexStart mb-1">
+              <strong class="userInfoField">About:</strong>
+              <div>${_description}</div>
+          </div>
+          <div class="flexContainer-flexStart mb-1">
+              <strong class="userInfoField">Location:</strong>
+              <div>${_location}</div>
+          </div>
+          <div class="flexContainer-flexStart mb-1">
+              <strong class="userInfoField">Website:</strong>
+              <a>${_website}</a>
+          </div>`;
 }
 
 document.getElementById('updateMemberBtn').addEventListener('click', showEditUserForm);
@@ -453,45 +452,59 @@ function populateEditUserForm() {
     type: 'GET',
     dataType: 'json',
     success: function(result) {
-      $('#editUserForm__username').val(result.username);
-    $('#editUserForm__email').val(result.email);
-    $('#editUserForm__description').val(result.about);
-    $('#editUserForm__website').val(result.website);
-    $('#editUserForm__location').val(result.location);
+          $('#editUserForm__username').val(result.username);
+          $('#editUserForm__email').val(result.email);
+          $('#editUserForm__description').val(result.about);
+          $('#editUserForm__website').val(result.website);
+          $('#editUserForm__location').val(result.location);
     },
     error: function(error) {
-      console.log(error);
+          console.log(error);
     }
   });
 }
 
 function makeEditUserForm() {
-  document.getElementById('memberAccount').innerHTML = `
-  <form id="editUserForm">
-    <div class="form-group row">
-      <label for="editUserForm__username" class="col-md-3">Username:</label>
-      <input type="text" class="form-control col-md-9" id="editUserForm__username">
-    </div>
-    <div class="form-group row">
-      <label for="editUserForm__email" class="col-md-3">Email:</label>
-      <input type="email" class="form-control col-md-9" id="editUserForm__email">
-    </div>
-    <div class="form-group row">
-      <label for="editUserForm__description" class="col-md-3">Description:</label>
-      <textarea type="text" class="form-control col-md-9" id="editUserForm__description" rows="4"></textarea>
-    </div>
-    <div class="form-group row">
-      <label for="editUserForm__location" class="col-md-3">Location:</label>
-      <input type="text" class="form-control col-md-9" id="editUserForm__location">
-    </div>
-    <div class="form-group row">
-      <label for="editUserForm__website" class="col-md-3">Website:</label>
-      <input type="text" class="form-control col-md-9" id="editUserForm__website">
-    </div>
-    <button id="cancelEditUserForm" class="btn btn-danger btn-font radius float-left mb-5">Cancel</button>
-    <button id="saveUserInfo" type="submit" class="float-right mb-5 btn btn-dark btn-font radius">Save</button>
-  </form>
-  `;
+  document.getElementById('memberAccount').innerHTML = 
+                                                      `<form id="editUserForm">
+                                                          <div class="form-group row">
+                                                              <label for="editUserForm__username" class="col-md-3">
+                                                                  Username:
+                                                              </label>
+                                                              <input type="text" class="form-control col-md-9" id="editUserForm__username">
+                                                          </div>
+                                                          <div class="form-group row">
+                                                              <label for="editUserForm__email" class="col-md-3">
+                                                                  Email:
+                                                              </label>
+                                                              <input type="email" class="form-control col-md-9" id="editUserForm__email">
+                                                          </div>
+                                                          <div class="form-group row">
+                                                              <label for="editUserForm__description" class="col-md-3">
+                                                                  Description:
+                                                              </label>
+                                                              <textarea type="text" class="form-control col-md-9" id="editUserForm__description" rows="4"></textarea>
+                                                          </div>
+                                                          <div class="form-group row">
+                                                              <label for="editUserForm__location" class="col-md-3">
+                                                                  Location:
+                                                              </label>
+                                                              <input type="text" class="form-control col-md-9" id="editUserForm__location">
+                                                          </div>
+                                                          <div class="form-group row">
+                                                              <label for="editUserForm__website" class="col-md-3">
+                                                                  Website:
+                                                              </label>
+                                                              <input id="editUserForm__website" type="text" class="form-control col-md-9">
+                                                          </div>
+                                                          <button id="cancelEditUserForm" class="btn btn-danger btn-font radius float-left mb-5">
+                                                              Cancel
+                                                          </button>
+                                                          <button id="saveUserInfo" type="submit" class="float-right mb-5 btn btn-dark btn-font radius">
+                                                              Save
+                                                          </button>
+                                                      </form>`;
+
   document.getElementById('editUserForm').addEventListener('submit', updateUser);
   document.getElementById('cancelEditUserForm').addEventListener('click', generateAccountSummaryHTMLFromStorage);
 }
@@ -504,11 +517,11 @@ function generateAccountSummaryHTMLFromStorage() {
   let email = sessionStorage.getItem('email');
 
   let account = {
-    about: description,
-    website: website,
-    location: location,
-    username: username,
-    email: email
+              about: description,
+              website: website,
+              location: location,
+              username: username,
+              email: email
   };
 
   generateAccountSummaryHTML(account);
@@ -517,6 +530,7 @@ function generateAccountSummaryHTMLFromStorage() {
 
 function updateUser(e) {
   e.preventDefault();
+
   let _id = sessionStorage.getItem('memberId');
   let _username = $('#editUserForm__username').val();
   let _email = $('#editUserForm__email').val();
@@ -528,71 +542,104 @@ function updateUser(e) {
     url: `${url}/updateMember/${_id}`,
     type: 'PATCH',
     data: {
-        username: _username,
-        email: _email,
-        about: _about,
-        location: _location,
-        website: _website
+          username: _username,
+          email: _email,
+          about: _about,
+          location: _location,
+          website: _website
     },
     success: function(updatedMember) {
-      generateAccountSummaryHTML(updatedMember);
-      $('#updateMemberBtn').show();
+          generateAccountSummaryHTML(updatedMember);
+          $('#updateMemberBtn').show();
     },
     error: function(err) {
-      console.log(err);
+          console.log(err);
     }
   });
 }
 
 function generateLandingPageCards() {
+
   $.ajax({
     url: `${url}/portfoliosAndAuthors`,
     type: 'GET',
     dataType: 'json',
     success: function(portfolios) {
-      makeProductCards(portfolios);
+          makeProductCards(portfolios);
     },
     error: function(error) {
-      console.log('Error: ' + error);
+          console.log('Error: ' + error);
     }
   });
 }
 
 function makePortfolioCards(arr) {
-  document.getElementById('myProjectCards').innerHTML = arr.map(item => `
-    <div class="card portfolioCard border-bottom">
-      <div style="background-image:url(${item.image})" class="portfolioPage-image"></div>
-      <h5 class="portfolioPage-cardTitle card-text mb-3">${item.title}</h5>
-      <div id="portfolioCard__buttonWrapper${item._id}" class="row mb-2">
-        <div class="col-sm-12 col-md-4 col-lg-4">
-          <div class="button viewMoreButton btn-font mb-3" id="${item._id}">View</div>
-        </div>
-        <div class="col-sm-12 col-md-4 col-lg-4">
-          <div class="editButton btn-dark btn-font radius py-2 px-2 mb-3" id="edit${item._id}">Edit</div>
-        </div>
-        <div class="col-sm-12 col-md-4 col-lg-4">
-          <div class="deleteButton btn-red radius px-3 py-2 mb-3 btn-font float-lg-right" id="delete${item._id}">Delete</div>
-        </div>
-      </div>
-    </div>
-    `).join(' ');
+  document.getElementById('myProjectCards').innerHTML = arr.map(item => 
+                                                                      `<div class="card 
+                                                                                  portfolioCard 
+                                                                                  border-bottom">
+                                                                          <div style="background-image:url(${item.image})" 
+                                                                              class="portfolioPage-image"></div>
+                                                                          <h5 class="portfolioPage-cardTitle 
+                                                                                    card-text mb-3">
+                                                                                    ${item.title}</h5>
+                                                                          <div id="portfolioCard__buttonWrapper${item._id}" 
+                                                                              class="row mb-2">
+                                                                              <div class="col-sm-12 
+                                                                                          col-md-4 
+                                                                                          col-lg-4">
+                                                                                  <div id="${item._id}"
+                                                                                       class="button 
+                                                                                              viewMoreButton 
+                                                                                              btn-font 
+                                                                                              mb-3">
+                                                                                              View</div>
+                                                                              </div>
+                                                                              <div class="col-sm-12 
+                                                                                          col-md-4 
+                                                                                          col-lg-4">
+                                                                                  <div id="edit${item._id}
+                                                                                       class="editButton 
+                                                                                              btn-dark 
+                                                                                              btn-font 
+                                                                                              radius 
+                                                                                              py-2 
+                                                                                              px-2 
+                                                                                              mb-3"">
+                                                                                              Edit</div>
+                                                                              </div>
+                                                                              <div class="col-sm-12 
+                                                                                          col-md-4 
+                                                                                          col-lg-4">
+                                                                                  <div id="delete${item._id}"
+                                                                                       class="deleteButton 
+                                                                                              btn-red radius 
+                                                                                              px-3 py-2 
+                                                                                              mb-3 
+                                                                                              btn-font 
+                                                                                              float-lg-right">
+                                                                                              Delete</div>
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>`)
+                                                            .join(' ');
 
     let viewMoreButtons = document.getElementsByClassName('viewMoreButton');
 
     for (let i = 0; i < viewMoreButtons.length; i++) {
-      viewMoreButtons[i].addEventListener('click', getArtworkInfo);
+        viewMoreButtons[i].addEventListener('click', getArtworkInfo);
     }
 
     let editButtons = document.getElementsByClassName('editButton');
 
     for (let i = 0; i < editButtons.length; i++) {
-      editButtons[i].addEventListener('click', prefillUpdateProjectForm);
+        editButtons[i].addEventListener('click', prefillUpdateProjectForm);
     }
 
     let deleteButtons = document.getElementsByClassName('deleteButton');
 
     for (let i = 0; i < deleteButtons.length; i++) {
-      deleteButtons[i].addEventListener('click', displayDeletePopup);
+        deleteButtons[i].addEventListener('click', displayDeletePopup);
     }
   }
 
@@ -607,50 +654,54 @@ function makePortfolioCards(arr) {
       dataType: 'json',
       success: function(project) {
 
-        //pre-fill editProjectForm with project details
-        $('#updatePortfolioTitle').val(project.title);
-        $('#updatePortfolioDescription').val(project.description);
-        $('#updatePortfolioImage').val(project.image);
-        $('#updatePortfolioCategory').val(project.category);
-        $('#updatePortfolioPrice').val(project.price);
+            //pre-fill editProjectForm with project details
+            $('#updatePortfolioTitle').val(project.title);
+            $('#updatePortfolioDescription').val(project.description);
+            $('#updatePortfolioImage').val(project.image);
+            $('#updatePortfolioCategory').val(project.category);
+            $('#updatePortfolioPrice').val(project.price);
 
-        $('#projectPage').hide();
-        $('#updatePortfolioPage').show();
+            $('#projectPage').hide();
+            $('#updatePortfolioPage').show();
       },
       error: function(error) {
-        console.log(error);
+            console.log(error);
       }
     });
   }
 
   function makeProductCards(arr) {
     document.getElementById('artsDeck').innerHTML = arr.map(art =>
-      `<div class="col-sm-12 col-md-6 col-lg-4 my-xs-1 my-sm-1 my-md-3 my-lg-3">
-      <div class="card card-border rounded-0 mb-4">
-
-      <img src="${art.image}" alt="Avatar" class="card-img-top radius">
-
-      <div class="card-body artcard-body mx-1 my-1">
-      <div class="artcard-columnwrap">
-      <h4 class="card-title mb-3">${art.title}</h4>
-      <h5 class="card-title artcard-price">&dollar;${art.price}</h5>
-      </div>
-      <p class="card-title"><b>${art.authorInfo.username}, ${art.authorInfo.location}</b></p>
-      <p class="mb-3 text-truncate">${art.description}</p>
-      <a href="${art.authorInfo.website}" class="card-link artcard-link">Artist Website</a>
-      <div class="artcard-columnwrap mt-4">
-      <p class="card-title h5-cyan">${art.category}</p>
-      <div class="button viewMoreButton btn-font" id="${art._id}">View</div>
-      </div>
-      </div>
-
-      </div>
-      </div>`
-    ).join(' ');
+                                                                  `<div class="col-sm-12 col-md-6 col-lg-4 my-xs-1 my-sm-1 my-md-3 my-lg-3">
+                                                                      <div class="card card-border rounded-0 mb-4">
+                                                                          <img src="${art.image}" 
+                                                                               alt="Avatar" 
+                                                                               class="card-img-top radius">
+                                                                          <div class="card-body artcard-body mx-1 my-1">
+                                                                              <div class="artcard-columnwrap">
+                                                                                  <h4 class="card-title mb-3">${art.title}</h4>
+                                                                                  <h5 class="card-title artcard-price">&dollar;${art.price}</h5>
+                                                                              </div>
+                                                                              <p class="card-title"><b>${art.authorInfo.username}, ${art.authorInfo.location}</b></p>
+                                                                              <p class="mb-3 text-truncate">${art.description}</p>
+                                                                              <a href="${art.authorInfo.website}" 
+                                                                                 class="card-link artcard-link">
+                                                                                 Artist Website</a>
+                                                                              <div class="artcard-columnwrap mt-4">
+                                                                                  <p class="card-title h5-cyan">${art.category}</p>
+                                                                                  <div id="${art._id} 
+                                                                                       class="button viewMoreButton btn-font"">
+                                                                                       View</div>
+                                                                              </div>
+                                                                          </div>
+                                                                      </div>
+                                                                  </div>`)
+                                                        .join(' ');
 
     let viewMoreButtons = document.getElementsByClassName('viewMoreButton');
+
     for (let i = 0; i < viewMoreButtons.length; i++) {
-      viewMoreButtons[i].addEventListener('click', getArtworkInfo);
+        viewMoreButtons[i].addEventListener('click', getArtworkInfo);
     }
   }
 
@@ -662,20 +713,22 @@ function makePortfolioCards(arr) {
       type: 'GET',
       dataType: 'json',
       success: function(portfolio) {
-        generateViewMoreHTML(portfolio[0]);
-        sessionStorage.setItem('currentPortfolio', portfolio[0]._id);
-        $("#viewMorePage").show();
-        $("#projectPage").hide();
-        $("#landingPage").hide();
-        if (portfolio[0].comments.length === 0) {
-          document.getElementById('viewMorePage-comments').innerHTML = `
-          <div id="noCommentNote" class="text-center">There has not been any question about this artwork</div>
-          `;
-          return;
-        }
+            generateViewMoreHTML(portfolio[0]);
+            sessionStorage.setItem('currentPortfolio', portfolio[0]._id);
+            $("#viewMorePage").show();
+            $("#projectPage").hide();
+            $("#landingPage").hide();
+
+            if (portfolio[0].comments.length === 0) {
+                document.getElementById('viewMorePage-comments').innerHTML = 
+                                                                            `<div id="noCommentNote" 
+                                                                                  class="text-center">
+                                                                                  There has not been any question about this artwork</div>`;
+                return;
+            }
       },
       error: function(error) {
-        console.log('Error: ' + error);
+            console.log('Error: ' + error);
       }
     });
   }
@@ -687,13 +740,18 @@ function makePortfolioCards(arr) {
     let idName = `portfolioCard__buttonWrapper${projectId}`;
     let buttonWrapper = document.getElementById(idName);
 
-    buttonWrapper.innerHTML = `
-        <div class="mx-auto">
-          <p class="text-center">Are you sure you want to delete this project?</p>
-          <button id="abortDeleteProject" class="btn btn-danger btn-font back-portfolio radius float-left">Cancel</button>
-          <button id="confirmDeleteProject" type="button" class="btn btn-dark btn-font float-right radius">Delete</button>
-        </div>
-    `;
+    buttonWrapper.innerHTML = 
+                              `<div class="mx-auto">
+                                    <p class="text-center">
+                                        Are you sure you want to delete this project?</p>
+                                    <button id="abortDeleteProject" 
+                                            class="btn btn-danger btn-font back-portfolio radius float-left">
+                                            Cancel</button>
+                                    <button id="confirmDeleteProject" 
+                                            type="button" 
+                                            class="btn btn-dark btn-font float-right radius">
+                                            Delete</button>
+                               </div>`;
 
     document.getElementById('confirmDeleteProject').addEventListener('click', deleteProject);
     document.getElementById('abortDeleteProject').addEventListener('click', abortDeleteProject);
@@ -706,11 +764,11 @@ function makePortfolioCards(arr) {
       url: `${url}/deletePortfolio/${projectId}`,
       type: 'DELETE',
       success: function(message) {
-        sessionStorage.removeItem('projectOnDelete');
-        generateMyPortfolios();
+            sessionStorage.removeItem('projectOnDelete');
+            generateMyPortfolios();
       },
       error: function(err) {
-        console.log(err);
+            console.log(err);
       }
     });
   }
@@ -720,34 +778,42 @@ function makePortfolioCards(arr) {
     let idName = `portfolioCard__buttonWrapper${projectId}`;
     let buttonWrapper = document.getElementById(idName);
     
-    buttonWrapper.innerHTML = `
-      <div class="col-sm-12 col-md-4 col-lg-4">
-        <div class="button viewMoreButton btn-font mb-3" id="${projectId}">View</div>
-      </div>
-      <div class="col-sm-12 col-md-4 col-lg-4">
-        <div class="editButton btn-dark btn-font radius py-2 px-2 mb-3" id="edit${projectId}">Edit</div>
-      </div>
-      <div class="col-sm-12 col-md-4 col-lg-4">
-        <div class="deleteButton btn-red radius px-3 py-2 mb-3 btn-font float-lg-right" id="delete${projectId}">Delete</div>
-      </div>
-    `;
+    buttonWrapper.innerHTML = 
+                              `<div class="col-sm-12 col-md-4 col-lg-4">
+                                    <div id="${projectId}" 
+                                         class="button viewMoreButton btn-font mb-3">
+                                         View
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-4 col-lg-4">
+                                    <div id="edit${projectId}" 
+                                         class="editButton btn-dark btn-font radius py-2 px-2 mb-3">
+                                         Edit
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-4 col-lg-4">
+                                    <div id="delete${projectId}"
+                                         class="deleteButton btn-red radius px-3 py-2 mb-3 btn-font float-lg-right">
+                                         Delete
+                                    </div>
+                              </div>`;
 
     let viewMoreButtons = document.getElementsByClassName('viewMoreButton');
 
     for (let i = 0; i < viewMoreButtons.length; i++) {
-      viewMoreButtons[i].addEventListener('click', getArtworkInfo);
+        viewMoreButtons[i].addEventListener('click', getArtworkInfo);
     }
 
     let editButtons = document.getElementsByClassName('editButton');
 
     for (let i = 0; i < editButtons.length; i++) {
-      editButtons[i].addEventListener('click', prefillUpdateProjectForm);
+        editButtons[i].addEventListener('click', prefillUpdateProjectForm);
     }
 
     let deleteButtons = document.getElementsByClassName('deleteButton');
 
     for (let i = 0; i < deleteButtons.length; i++) {
-      deleteButtons[i].addEventListener('click', displayDeletePopup);
+        deleteButtons[i].addEventListener('click', displayDeletePopup);
     }
   }
 
@@ -757,101 +823,120 @@ function makePortfolioCards(arr) {
     let addCommentHTML;
 
     commentsHTML = portfolio.comments.map(function(item) {
-      if (currentUser && (item.postByUsername === currentUser)) {
-        return `
-          <div class="col-sm-12 col-lg-12 col-md-10">
-            <div class="comment-container comment-right mb-3">
-                <div class="comment-info">
-                <strong class="mr-1">You</strong>
-                <p>on ${formatDate(item.posted)}</p>
-              </div>
-              <p><b>${item.text}</b></p>
-            </div>
-          </div>
-        `;
-      } else if (item.postByUsername !== currentUser) {
-        return `
-          <div class="col-sm-12 col-lg-12 col-md-10">
-            <div class="comment-container comment-left mb-3">
-              <div class="comment-info">
-                <strong class="mr-1">${item.postByUsername}</strong>
-                <p>on ${formatDate(item.posted)}</p>
-              </div>
-              <p>${item.text}</p>
-            </div>
-          </div>
-        `;
-      }
-    }).join(' ');
+                                              if (currentUser && (item.postByUsername === currentUser)) {
+                                                return `<div class="col-sm-12 col-lg-12 col-md-10">
+                                                            <div class="comment-container comment-right mb-3">
+                                                                <div class="comment-info">
+                                                                    <strong class="mr-1">You</strong>
+                                                                    <p>on ${formatDate(item.posted)}</p>
+                                                                </div>
+                                                                <p><b>${item.text}</b></p>
+                                                            </div>
+                                                        </div>`;
+                                              } else if (item.postByUsername !== currentUser) {
+                                                return `<div class="col-sm-12 col-lg-12 col-md-10">
+                                                            <div class="comment-container comment-left mb-3">
+                                                                <div class="comment-info">
+                                                                    <strong class="mr-1">${item.postByUsername}</strong>
+                                                                    <p>on ${formatDate(item.posted)}</p>
+                                                                </div>
+                                                                <p>${item.text}</p>
+                                                            </div>
+                                                        </div>`;
+                                              }})
+                                      .join(' ');
 
-    addCommentHTML = currentUser ? `
-      <div class="col-12 col-sm-12 col-lg-10 col-md-10 mx-auto">
-        <label for="viewMorePage-postComment" class="nav-font">Comment:</label>
-        <textarea id="viewMorePage-postComment" class="col-12 col-sm-12 col-lg-10 col-md-10" rows="4" cols="100"></textarea>
-        <div class="col-12 col-sm-12 col-lg-11 col-md-11">
-            <div id="viewMorePage-postCommentButton" class="button btn-font bg-dark float-right mt-2 mb-5">Submit</div>
-        </div>
-      </div>
-    ` : `
-      <div class="text-center mb-5">Please log in to add comment</div>
-    `;
+    addCommentHTML = currentUser ? `<div class="col-12 col-sm-12 col-lg-10 col-md-10 mx-auto">
+                                        <label for="viewMorePage-postComment" 
+                                               class="nav-font">
+                                               Comment:
+                                        </label>
+                                        <textarea id="viewMorePage-postComment" 
+                                                  class="col-12 col-sm-12 col-lg-10 col-md-10" 
+                                                  rows="4" 
+                                                  cols="100">
+                                        </textarea>
+                                        <div class="col-12 col-sm-12 col-lg-11 col-md-11">
+                                            <div id="viewMorePage-postCommentButton" 
+                                                 class="button btn-font bg-dark float-right mt-2 mb-5">
+                                                 Submit
+                                            </div>
+                                        </div>
+                                    </div>` : `
+                                    <div class="text-center mb-5">Please log in to add comment</div>`;
 
     document.getElementById('viewMorePage').innerHTML = `
-    <div id="viewMorePage-artInfo">
-    <h5 class="h3">${portfolio.title}</h5>
-    <div class="viewMore-photoBackground">
-    <img src="${portfolio.image}" class="viewMore-mainPhoto" alt="${portfolio.title} photo">
-    </div>
-    <div class="flexContainer-row mt-3 mb-3">
-    <h5 class="h4">${portfolio.authorInfo.username}</h5>
-    <h5 class="card-title h4 artcard-price">&dollar;${portfolio.price}</h5>
-    </div>
-    <p>${portfolio.description}</p>
-    <strong class="mb-5">Location: ${portfolio.authorInfo.location}</strong>
-    <br/>
-    <a href="${portfolio.authorInfo.website}" class="artcard-link">${portfolio.authorInfo.website}</a>
-    <div class="artcard-columnwrap mt-5 viewMore-endBoarder">
-    <p class="card-title h5-cyan">${portfolio.category}</p>
-    <div class="bg-info text-white radius py-2 px-3 btn-font" id="${portfolio._id}">Buy Now</div>
-    </div>
-    <button id="backToLanding" type="button" class="btn btn-dark mt-3 mb-5 btn-font radius">Back</button>
-    </div>
-    <div class="bg-light pt-5">
-    <div class="row mx-auto">
-        <div class="col-12 mb-5">
-          <h5 class="text-center">Questions About This Artwork</h5>
-        </div>
-        <div class="col-sm-12 col-md-8 mx-auto">
+                                                        <div id="viewMorePage-artInfo">
+                                                            <h5 class="h3">${portfolio.title}</h5>
+                                                            <div class="viewMore-photoBackground">
+                                                                <img src="${portfolio.image}" 
+                                                                     class="viewMore-mainPhoto" 
+                                                                     alt="${portfolio.title} photo">
+                                                            </div>
+                                                            <div class="flexContainer-row mt-3 mb-3">
+                                                                <h5 class="h4">${portfolio.authorInfo.username}</h5>
+                                                                <h5 class="card-title h4 artcard-price">&dollar;${portfolio.price}</h5>
+                                                            </div>
+                                                            <p>${portfolio.description}</p>
+                                                            <strong class="mb-5">Location: ${portfolio.authorInfo.location}</strong>
+                                                            <br/>
+                                                            <a href="${portfolio.authorInfo.website}" 
+                                                               class="artcard-link">
+                                                               ${portfolio.authorInfo.website}
+                                                            </a>
+                                                            <div class="artcard-columnwrap mt-5 viewMore-endBoarder">
+                                                                <p class="card-title h5-cyan">${portfolio.category}</p>
+                                                                <div id="${portfolio._id}" 
+                                                                     class="bg-info text-white radius py-2 px-3 btn-font">
+                                                                     Buy Now
+                                                                </div>
+                                                            </div>
+                                                            <button id="backToLanding" 
+                                                                    type="button" 
+                                                                    class="btn btn-dark mt-3 mb-5 btn-font radius">
+                                                                    Back
+                                                            </button>
+                                                        </div>
+                                                        <div class="bg-light pt-5">
+                                                            <div class="row mx-auto">
+                                                                <div class="col-12 mb-5">
+                                                                    <h5 class="text-center">
+                                                                        Questions About This Artwork
+                                                                    </h5>
+                                                                </div>
+                                                                <div class="col-sm-12 col-md-8 mx-auto">
+                                                                    <div id="viewMorePage-comments" 
+                                                                         class="mb-5">
+                                                                         ${commentsHTML}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        
+                                                            <div class="row mx-auto">
+                                                                <div class="col-12 mb-4 mt-3">
+                                                                    <h5 class="text-center">
+                                                                        Ask the Artist a Question
+                                                                    </h5>
+                                                                </div>
+                                                                <div id="viewMorePage-addCommentWrapper" 
+                                                                     class="row mx-auto">
+                                                                     ${addCommentHTML}
+                                                                </div>
+                                                            </div>
+                                                        </div>`;
 
-          <div id="viewMorePage-comments" class="mb-5">
-            ${commentsHTML}
-          </div>
-
-        </div>
-      </div>
-    
-    <div class="row mx-auto">
-      <div class="col-12 mb-4 mt-3">
-        <h5 class="text-center">Ask the Artist a Question</h5>
-      </div>
-      <div id="viewMorePage-addCommentWrapper" class="row mx-auto">
-        ${addCommentHTML}
-      </div>
-    </div>
-    </div>
-    `;
     $('html, body').animate({ scrollTop: 0 }, 'fast');
 
     document.getElementById('backToLanding').addEventListener('click', function() {
-      $("#viewMorePage").hide();
-      $("#landingPage").show();
-      sessionStorage.removeItem('currentPortfolio');
+                                                                          $("#viewMorePage").hide();
+                                                                          $("#landingPage").show();
+                                                                          sessionStorage.removeItem('currentPortfolio');
     });
     
     let viewMorePageNode = document.getElementById('viewMorePage');
 
     if (viewMorePageNode.contains(document.getElementById('viewMorePage-postCommentButton'))) {
-      document.getElementById('viewMorePage-postCommentButton').addEventListener('click', postComment);
+        document.getElementById('viewMorePage-postCommentButton').addEventListener('click', postComment);
     }
   }
 
@@ -866,18 +951,19 @@ function makePortfolioCards(arr) {
       url: `${url}/filterPortfolios/${minPrice}/${maxPrice}/${category}`,
       type: 'GET',
       success: function(response) {
-        if (response === 'Sorry, there is no artwork that matches your search!') {
-          document.getElementById('artsDeck').innerHTML = `
-          <div class="row mx-auto">
-          <h5 class="text-center mt-5 mb-5">Sorry, there is no artwork that matches your search!</h5>
-          </div>
-          `;
-        } else {
-          makeProductCards(response);
-        }
+            if (response === 'Sorry, there is no artwork that matches your search!') {
+              document.getElementById('artsDeck').innerHTML = `
+                                                                <div class="row mx-auto">
+                                                                    <h5 class="text-center mt-5 mb-5">
+                                                                        Sorry, there is no artwork that matches your search!
+                                                                    </h5>
+                                                                </div>`;
+            } else {
+              makeProductCards(response);
+            }
       },
       error: function(error) {
-        console.log('Error: ' + error);
+             console.log('Error: ' + error);
       }
     });
   }
@@ -888,25 +974,23 @@ function makePortfolioCards(arr) {
     let _portfolioID = sessionStorage.getItem('currentPortfolio');
     let _userID = sessionStorage.getItem('memberId');
     let _username = sessionStorage.getItem('username');
-    console.log(sessionStorage);
-    console.log(_userID, _portfolioID);
 
     $.ajax({
       url: `${url}/addComment`,
       type: 'POST',
       data: {
-        portfolioID: _portfolioID,
-        postByID: _userID,
-        postByUsername: _username,
-        postDate: _date,
-        content: _content
+            portfolioID: _portfolioID,
+            postByID: _userID,
+            postByUsername: _username,
+            postDate: _date,
+            content: _content
       },
       success: function(comment) {
-        $('textarea#viewMorePage-postComment').val('');
-        addComment(comment);
+            $('textarea#viewMorePage-postComment').val('');
+            addComment(comment);
       },
       error: function(err) {
-        console.log(err);
+            console.log(err);
       }
 
     });
@@ -925,17 +1009,15 @@ function makePortfolioCards(arr) {
 
   function addComment(comment) {
     let commentHtml = `
-
-    <div class="col-sm-12 col-lg-12 col-md-10">
-        <div class="comment-container comment-right mb-3">
-        <div class="comment-info">
-        <strong class="mr-1">You</strong>
-        <p>on ${formatDate(comment.posted)}</p>
-        </div>
-        <p><b>${comment.text}</b></p>
-        </div>
-    </div>
-    `;
+                      <div class="col-sm-12 col-lg-12 col-md-10">
+                          <div class="comment-container comment-right mb-3">
+                              <div class="comment-info">
+                                  <strong class="mr-1">You</strong>
+                                  <p>on ${formatDate(comment.posted)}</p>
+                              </div>
+                              <p><b>${comment.text}</b></p>
+                          </div>
+                      </div>`;
 
     let commentsContainer = document.getElementById('viewMorePage-comments');
     let noCommentNote = document.getElementById('noCommentNote');
