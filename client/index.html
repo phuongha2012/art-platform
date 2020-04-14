@@ -40,7 +40,7 @@
             <div class="landingPage-banner"></div>
             <div class="filterDropdown row">
               <div class="input-group col-12 col-sm-12 col-md-3 col-lg-3">
-                <select class="custom-select filterInputGroup mx-2 my-2" id="filterDropdown-byPrice">
+                <select id="filterDropdown-byPrice" class="custom-select filterInputGroup mx-2 my-2">
                   <option value='{"min":0,"max":500000}' selected>Price</option>
                   <option value='{"min":0,"max":50}'>Under $50</option>
                   <option value='{"min":51,"max":150}'>From $51 to $150</option>
@@ -58,7 +58,7 @@
                   <option value="Others">Others</option>
                 </select>
               </div>
-              <button class="bg-info btn nav-font px-3 mr-3 text-white radius" id="filterButton">Search</button>
+              <button id="filterButton" class="bg-info btn nav-font px-3 mr-3 text-white radius">Search</button>
             </div>
 
             <!-- Arts listing -->
@@ -124,7 +124,7 @@
                       <!-- Project image url -->
                       <div class="form-group">
                           <label class="h5-label" for="addPortfolioImage">Image URL</label>
-                          <input type="text" id="addPortfolioImage" class="form-control rounded" placeholder="Image URL" name="addPortfolioImage" required>
+                          <input id="addPortfolioImage" type="text" class="form-control rounded" placeholder="Image URL" name="addPortfolioImage" required>
                       </div>
                       <!-- Project category select -->
                       <div class="row mb-2">
@@ -221,16 +221,16 @@
                           <!-- Email -->
                           <div class="form-group">
                               <label class="h5-label" for="registerEmail">Email</label>
-                              <input type="email" name="registerEmail" class="form-control rounded" placeholder="Email" id="registerEmail" required>
+                              <input id="registerEmail" class="form-control rounded" type="email" name="registerEmail" placeholder="Email" required>
                           </div>
                           <!-- Password -->
                           <div class="form-group">
                               <label class="h5-label" for="registerPassword">Password</label>
-                              <input type="password" autocomplete="new-password" name="registerPassword" class="form-control rounded" placeholder="Password" id="registerPassword" required autofocus>
+                              <input id="registerPassword" class="form-control rounded" type="password" autocomplete="new-password" name="registerPassword" placeholder="Password" required autofocus>
                               <div id="errorPassword"></div>
                           </div>
                           <div class="text-center">
-                              <button id="registerSubmit" name="registerButton" type="submit" class="mt-3 btn btn-dark btn-lg btn-font radius">Sign Up!</button>
+                              <button id="registerSubmit" class="mt-3 btn btn-dark btn-lg btn-font radius" name="registerButton" type="submit" >Sign Up!</button>
                           </div>
                       </form>
                   </div>
