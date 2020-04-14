@@ -326,12 +326,13 @@ $('#addPortfolioForm').submit(function(){
 
 // Yanas code ENDS
 
-// Hayley's code
+// Hayley's code start
 
 // UPDATE PORTFOLIO FORM ===============================================
 
-$('#updatePortfolioForm').submit(function(){
+$('#updatePortfolioForm').submit(function() {
   event.preventDefault();
+
   let portfolioId = sessionStorage.getItem('projectOnEdit');
   let _title = $('#updatePortfolioTitle').val();
   let _description = $('#updatePortfolioDescription').val();
@@ -340,26 +341,25 @@ $('#updatePortfolioForm').submit(function(){
   let _price = $('#updatePortfolioPrice').val();
 
   $.ajax({
-    url : `${url}/updatePortfolio/${portfolioId}`,
-    type : 'PATCH',
-    data : {
-      title : _title,
-      description : _description,
-      image : _image,
-      category : _category,
-      price: _price
+    url: `${url}/updatePortfolio/${portfolioId}`,
+    type: 'PATCH',
+    data: {
+          title : _title,
+          description : _description,
+          image : _image,
+          category : _category,
+          price: _price
     },
-    success : function(data){
-      sessionStorage.removeItem('projectOnEdit');
-      $('#updatePortfolioForm').trigger('reset');
-      $('#updatePortfolioPage').hide();
-      generateMyPortfolios();
-      $('#projectPage').show();
-      $('html, body').animate({ scrollTop: 0 }, 'fast');
-
+    success: function(data) {
+          sessionStorage.removeItem('projectOnEdit');
+          $('#updatePortfolioForm').trigger('reset');
+          $('#updatePortfolioPage').hide();
+          generateMyPortfolios();
+          $('#projectPage').show();
+          $('html, body').animate({ scrollTop: 0 }, 'fast');
     },
-    error:function(){
-      console.log('error: cannot call api');
+    error: function() {
+          console.log('error: cannot call api');
     }
   });
 });
@@ -488,12 +488,31 @@ function makeEditUserForm() {
       <label for="editUserForm__website" class="col-md-3">Website:</label>
       <input type="text" class="form-control col-md-9" id="editUserForm__website">
     </div>
-    <button class="btn btn-danger btn-font back-portfolio radius float-left mb-5">Cancel</button>
+    <button id="cancelEditUserForm" class="btn btn-danger btn-font radius float-left mb-5">Cancel</button>
     <button id="saveUserInfo" type="submit" class="float-right mb-5 btn btn-dark btn-font radius">Save</button>
   </form>
   `;
   document.getElementById('editUserForm').addEventListener('submit', updateUser);
+  document.getElementById('cancelEditUserForm').addEventListener('click', generateAccountSummaryHTMLFromStorage);
+}
 
+function generateAccountSummaryHTMLFromStorage() {
+  let description = (sessionStorage.getItem('about') !== "undefined") ? sessionStorage.getItem('about') : "";
+  let website = (sessionStorage.getItem('website') !== "undefined") ? sessionStorage.getItem('website') : "";
+  let location = (sessionStorage.getItem('location') !== "undefined") ? sessionStorage.getItem('location') : "";
+  let username = sessionStorage.getItem('username');
+  let email = sessionStorage.getItem('email');
+
+  let account = {
+    about: description,
+    website: website,
+    location: location,
+    username: username,
+    email: email
+  };
+
+  generateAccountSummaryHTML(account);
+  $('#updateMemberBtn').show();
 }
 
 function updateUser(e) {
