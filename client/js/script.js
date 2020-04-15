@@ -889,14 +889,14 @@ $(document).ready(function(){
                                                                                 <div class="col-sm-12 
                                                                                             col-md-4 
                                                                                             col-lg-4">
-                                                                                    <div id="edit${item._id}
+                                                                                    <div id="edit${item._id}"
                                                                                         class="editButton 
                                                                                                 btn-dark 
                                                                                                 btn-font 
                                                                                                 radius 
                                                                                                 py-2 
                                                                                                 px-2 
-                                                                                                mb-3"">
+                                                                                                mb-3">
                                                                                                 Edit</div>
                                                                                 </div>
                                                                                 <div class="col-sm-12 
@@ -1081,5 +1081,5 @@ $(document).ready(function(){
 
   // ============================== Hayley's code ends =================================
   // ===================================================================================
-  
+
 }); // Document ready ends
