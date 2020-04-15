@@ -270,7 +270,6 @@ $('.edit-button').click(function(){
         password : password
       },
       success : function(loginData){
-        console.log(loginData);
         if (loginData === ' ') {
           Swal.fire({
             title: 'Empty Input Field',
@@ -307,12 +306,10 @@ $('.edit-button').click(function(){
           $('#landingPage').show();
           $('#loginPage').hide();
           $('html, body').animate({ scrollTop: 0 }, 'fast');
-          console.log(sessionStorage);
-
         }
       },//success
       error:function(){
-        // console.log('error: cannot call api');
+        console.log('error: cannot call api');
       }//error
     });//ajax
   });
