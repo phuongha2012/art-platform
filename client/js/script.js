@@ -1,6 +1,6 @@
 $(document).ready(function(){
   $('html, body').animate({ scrollTop: 0 }, 'fast');
-  // sessionStorage.clear();
+  sessionStorage.clear();
   const url = "https://artful-nz.herokuapp.com";
   generateLandingPageCards();
 
@@ -258,6 +258,7 @@ $('.edit-button').click(function(){
         password : password
       },
       success : function(loginData){
+        console.log(loginData);
         if (loginData === ' ') {
           alert('Please fill in all input fields');
         } else if (loginData === 'Member not found. Please register') {
@@ -279,6 +280,7 @@ $('.edit-button').click(function(){
           $('#landingPage').show();
           $('#loginPage').hide();
           $('html, body').animate({ scrollTop: 0 }, 'fast');
+          console.log(sessionStorage);
 
         }
       },//success

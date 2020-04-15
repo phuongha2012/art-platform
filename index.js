@@ -83,7 +83,7 @@ app.post('/loginMember', (req,res) => {
       if (bcryptjs.compareSync(req.body.password, memberResult.password)){
         res.send(memberResult);
       } else {
-        res.send('not authorized');
+        res.send('Not Authorized');
       }
     } else {
       res.send('Member not found. Please register');
