@@ -1,5 +1,6 @@
 $(document).ready(function(){
-  sessionStorage.clear();
+  $('html, body').animate({ scrollTop: 0 }, 'fast');
+  // sessionStorage.clear();
   const url = "https://artful-nz.herokuapp.com";
   generateLandingPageCards();
 
@@ -10,6 +11,7 @@ $(document).ready(function(){
   if (sessionStorage.username) {
     // buttons
     $('#logoutBtn').show();
+    $('.home-btn').show();
     $('#myPortfolioBtn').show();
     $('#loginBtn').hide();
     $('#signUpBtn').hide();
@@ -26,6 +28,7 @@ $(document).ready(function(){
     // buttons
     $('#logoutBtn').hide();
     $('#myPortfolioBtn').hide();
+    $('.home-btn').show();
     $('#loginBtn').show();
     $('#signUpBtn').show();
     // pages
@@ -39,7 +42,7 @@ $(document).ready(function(){
   }
 
   //Home button to show landing page
-  $('#homeBtn').click(function(){
+  $('.home-btn').click(function(){
     // pages
     $('#landingPage').show();
     $('#viewMorePage').hide();
@@ -60,8 +63,8 @@ $(document).ready(function(){
     $('#projectPage').hide();
     $('#uploadPortfolioPage').hide();
     $('#updatePortfolioPage').hide();
-  });
 
+  });
 
   //signup button to shoe register page
   $('#signUpBtn').click(function(){
@@ -86,10 +89,12 @@ $(document).ready(function(){
     $('#landingPage').hide();
     $('#viewMorePage').hide();
     $('#uploadPortfolioPage').hide();
+    $('#updatePortfolioPage').hide();
   });
 
   //upload projects button to show upload project page
   $('#addPortfolio').click(function(){
+      $('html, body').animate({ scrollTop: 0 }, 'fast');
     // pages
     $('#uploadPortfolioPage').show();
     $('#projectPage').hide();
@@ -115,6 +120,7 @@ $(document).ready(function(){
 
   //update projects button to show update project page
   $('#updateProject').click(function(){
+
     // pages
     $('#uploadPortfolioPage').hide();
     $('#projectPage').hide();
@@ -136,6 +142,12 @@ $(document).ready(function(){
     $('#viewMorePage').hide();
     $('#updatePortfolioPage').hide();
   });
+
+// edit button to scroll up on update page
+
+$('.edit-button').click(function(){
+      $('html, body').animate({ scrollTop: 0 }, 'fast');
+});
 
 
   // Logout member ===============================================================
@@ -210,7 +222,7 @@ $(document).ready(function(){
         }
       },//success
       error:function(){
-        console.log('error: cannot call api');
+        // console.log('error: cannot call api');
       }//error
 
     });//ajax
@@ -265,7 +277,7 @@ $(document).ready(function(){
   // show members name ===========================================================
   // Yanas code
   function showMemberName(name){
-    document.getElementById('memberName').innerHTML = '<b>' + name + '</b>';
+    document.getElementById('memberName').innerHTML =  '<h1 class="d-block text-center mt-4 mb-5">' + name + '\'s Account </h1>';
   }
 
   // add portfolio form ===============================================================
@@ -324,6 +336,7 @@ $(document).ready(function(){
     } //else
   }); // submit add portfolio
 
+
   // Yanas code ENDS
 
 
@@ -360,32 +373,28 @@ $(document).ready(function(){
   // Map portfolios result from backend into product cards and attach to #artsDeck div
   function makeProductCards(arr) {
     document.getElementById('artsDeck').innerHTML = arr.map(art =>
-                                                                  `<div class="col-sm-12 col-md-6 col-lg-4 my-xs-1 my-sm-1 my-md-3 my-lg-3">
-                                                                      <div class="card card-border rounded-0 mb-4">
-                                                                          <img src="${art.image}" 
-                                                                              alt="Avatar" 
-                                                                              class="card-img-top radius">
-                                                                          <div class="card-body artcard-body mx-1 my-1">
-                                                                              <div class="artcard-columnwrap">
-                                                                                  <h4 class="card-title mb-3">${art.title}</h4>
-                                                                                  <h5 class="card-title artcard-price">&dollar;${art.price}</h5>
-                                                                              </div>
-                                                                              <p class="card-title"><b>${art.authorInfo.username}, ${art.authorInfo.location}</b></p>
-                                                                              <p class="mb-3 text-truncate">${art.description}</p>
-                                                                              <a href="${art.authorInfo.website}" 
-                                                                                class="card-link artcard-link">
-                                                                                Artist Website</a>
-                                                                              <div class="artcard-columnwrap mt-4">
-                                                                                  <p class="card-title h5-cyan">${art.category}</p>
-                                                                                  <div id="${art._id} 
-                                                                                      class="button viewMoreButton btn-font"">
-                                                                                      View</div>
-                                                                              </div>
-                                                                          </div>
-                                                                      </div>
-                                                                  </div>`)
-                                                        .join(' ');
-    
+      `<div class="col-sm-12 col-md-6 col-lg-4 my-xs-1 my-sm-1 my-md-3 my-lg-3">
+        <div class="card card-border rounded-0 mb-4">
+
+        <img src="${art.image}" id="${art._id}" alt="Avatar" class="card-img-top radius viewMoreButton">
+
+        <div class="card-body artcard-body mx-1 my-1">
+        <div class="artcard-columnwrap">
+        <h4 class="card-title mb-3">${art.title}</h4>
+        <h5 class="card-title artcard-price">&dollar;${art.price}</h5>
+        </div>
+        <p class="card-title"><b> <a href="${art.authorInfo.website}" class="card-link artcard-link">${art.authorInfo.username}</a>, ${art.authorInfo.location}</b></p>
+        <p class="mb-3 text-truncate">${art.description}</p>
+        <div class="artcard-columnwrap mt-4">
+        <p class="card-title h5-cyan">${art.category}</p>
+        <div class="button viewMoreButton btn-font" id="${art._id}">View</div>
+        </div>
+        </div>
+
+        </div>
+        </div>`
+      ).join(' ');
+
     // If viewMore button is clicked, show viewMorePage
     let viewMoreButtons = document.getElementsByClassName('viewMoreButton');
 
@@ -444,8 +453,8 @@ $(document).ready(function(){
             $("#landingPage").hide();
 
             if (portfolio[0].comments.length === 0) {
-                document.getElementById('viewMorePage-comments').innerHTML = 
-                                                                            `<div id="noCommentNote" 
+                document.getElementById('viewMorePage-comments').innerHTML =
+                                                                            `<div id="noCommentNote"
                                                                                   class="text-center">
                                                                                   There has not been any question about this artwork</div>`;
                 return;
@@ -490,17 +499,17 @@ $(document).ready(function(){
 
     // Conditionally render addComment HTML base on user's login status
     addCommentHTML = currentUser ? `<div class="col-12 col-sm-12 col-lg-10 col-md-10 mx-auto">
-                                        <label for="viewMorePage-postComment" 
+                                        <label for="viewMorePage-postComment"
                                               class="nav-font">
                                               Comment:
                                         </label>
-                                        <textarea id="viewMorePage-postComment" 
-                                                  class="col-12 col-sm-12 col-lg-10 col-md-10" 
-                                                  rows="4" 
+                                        <textarea id="viewMorePage-postComment"
+                                                  class="col-12 col-sm-12 col-lg-10 col-md-10"
+                                                  rows="4"
                                                   cols="100">
                                         </textarea>
                                         <div class="col-12 col-sm-12 col-lg-11 col-md-11">
-                                            <div id="viewMorePage-postCommentButton" 
+                                            <div id="viewMorePage-postCommentButton"
                                                 class="button btn-font bg-dark float-right mt-2 mb-5">
                                                 Submit
                                             </div>
@@ -513,8 +522,8 @@ $(document).ready(function(){
                                                         <div id="viewMorePage-artInfo">
                                                             <h5 class="h3">${portfolio.title}</h5>
                                                             <div class="viewMore-photoBackground">
-                                                                <img src="${portfolio.image}" 
-                                                                    class="viewMore-mainPhoto" 
+                                                                <img src="${portfolio.image}"
+                                                                    class="viewMore-mainPhoto img-fluid"
                                                                     alt="${portfolio.title} photo">
                                                             </div>
                                                             <div class="flexContainer-row mt-3 mb-3">
@@ -524,19 +533,19 @@ $(document).ready(function(){
                                                             <p>${portfolio.description}</p>
                                                             <strong class="mb-5">Location: ${portfolio.authorInfo.location}</strong>
                                                             <br/>
-                                                            <a href="${portfolio.authorInfo.website}" 
+                                                            <a href="${portfolio.authorInfo.website}"
                                                               class="artcard-link">
                                                               ${portfolio.authorInfo.website}
                                                             </a>
                                                             <div class="artcard-columnwrap mt-5 viewMore-endBoarder">
                                                                 <p class="card-title h5-cyan">${portfolio.category}</p>
-                                                                <div id="${portfolio._id}" 
+                                                                <div id="${portfolio._id}"
                                                                     class="bg-info text-white radius py-2 px-3 btn-font">
                                                                     Buy Now
                                                                 </div>
                                                             </div>
-                                                            <button id="backToLanding" 
-                                                                    type="button" 
+                                                            <button id="backToLanding"
+                                                                    type="button"
                                                                     class="btn btn-dark mt-3 mb-5 btn-font radius">
                                                                     Back
                                                             </button>
@@ -549,20 +558,20 @@ $(document).ready(function(){
                                                                     </h5>
                                                                 </div>
                                                                 <div class="col-sm-12 col-md-8 mx-auto">
-                                                                    <div id="viewMorePage-comments" 
+                                                                    <div id="viewMorePage-comments"
                                                                         class="mb-5">
                                                                         ${commentsHTML}
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        
+
                                                             <div class="row mx-auto">
                                                                 <div class="col-12 mb-4 mt-3">
                                                                     <h5 class="text-center">
                                                                         Ask the Artist a Question
                                                                     </h5>
                                                                 </div>
-                                                                <div id="viewMorePage-addCommentWrapper" 
+                                                                <div id="viewMorePage-addCommentWrapper"
                                                                     class="row mx-auto">
                                                                     ${addCommentHTML}
                                                                 </div>
@@ -577,7 +586,7 @@ $(document).ready(function(){
                                                                           $("#landingPage").show();
                                                                           sessionStorage.removeItem('currentPortfolio');
     });
-    
+
     let viewMorePageNode = document.getElementById('viewMorePage');
 
     if (viewMorePageNode.contains(document.getElementById('viewMorePage-postCommentButton'))) {
@@ -683,7 +692,7 @@ $(document).ready(function(){
     let _website = account.website ? account.website : "";
     let _location = account.location ? account.location : "";
 
-    document.getElementById('memberAccount').innerHTML = 
+    document.getElementById('memberAccount').innerHTML =
             `<div class="flexContainer-flexStart mb-1">
                 <strong class="userInfoField">Username:</strong>
                 <div>${account.username}</div>
@@ -717,7 +726,7 @@ $(document).ready(function(){
 
   // Generate edit user form HTML and replace account summary with this in #memberAccount div
   function makeEditUserForm() {
-    document.getElementById('memberAccount').innerHTML = 
+    document.getElementById('memberAccount').innerHTML =
                                                         `<form id="editUserForm">
                                                             <div class="form-group row">
                                                                 <label for="editUserForm__username" class="col-md-3">
@@ -781,7 +790,7 @@ $(document).ready(function(){
       }
     });
   }
-  
+
   // Submit updated user info to backend on edit user form submit
   function updateUser(e) {
     e.preventDefault();
@@ -850,11 +859,11 @@ $(document).ready(function(){
       type: 'GET',
       success: function(results) {
             if (results === "No portfolio by this user found") {
-              document.getElementById('myProjectCards').innerHTML = 
-                  `<div class="noPortfolio text-center">You have not upload any project yet!</div>`;
+              document.getElementById('myProjectCards').innerHTML =
+                  `<div class="noPortfolio text-center">You have not uploaded a project yet</div>`;
               return;
             }
-            
+
             makePortfolioCards(results);
       },
       error: function(error) {
@@ -918,7 +927,7 @@ $(document).ready(function(){
     addListenersToCardButtons();  
   }
 
-  // Add event listeners to viewMoreButtons, Edit, Delete buttons of project cards  
+  // Add event listeners to viewMoreButtons, Edit, Delete buttons of project cards
   function addListenersToCardButtons() {
     let viewMoreButtons = document.getElementsByClassName('viewMoreButton');
 
@@ -940,7 +949,7 @@ $(document).ready(function(){
     }
   }
 
-  
+
   // EDIT A PROJECT IN CURRENT USER'S PORTFOLIO
 
   // If editProject buttons clicked, prefill UpdateProjectForm in index.html with projectOnEdit's info from backend
@@ -1005,26 +1014,26 @@ $(document).ready(function(){
     });
   });
 
-  
+
   // DELETE A PROJECT IN CURRENT USER'S PORTFOLIO
 
   // If deleteProject buttons clicked, show pop up to reconfirm delete
-  function displayDeletePopup(e) {   
+  function displayDeletePopup(e) {
     let projectId = (e.target.id).slice(6);
     sessionStorage.setItem('projectOnDelete', projectId);
 
     let idName = `portfolioCard__buttonWrapper${projectId}`;
     let buttonWrapper = document.getElementById(idName);
 
-    buttonWrapper.innerHTML = 
+    buttonWrapper.innerHTML =
                               `<div class="mx-auto">
                                     <p class="text-center">
                                         Are you sure you want to delete this project?</p>
-                                    <button id="abortDeleteProject" 
+                                    <button id="abortDeleteProject"
                                             class="btn btn-danger btn-font back-portfolio radius float-left">
                                             Cancel</button>
-                                    <button id="confirmDeleteProject" 
-                                            type="button" 
+                                    <button id="confirmDeleteProject"
+                                            type="button"
                                             class="btn btn-dark btn-font float-right radius">
                                             Delete</button>
                               </div>`;
@@ -1055,16 +1064,16 @@ $(document).ready(function(){
     let projectId = sessionStorage.getItem('projectOnDelete');
     let idName = `portfolioCard__buttonWrapper${projectId}`;
     let buttonWrapper = document.getElementById(idName);
-    
-    buttonWrapper.innerHTML = 
+
+    buttonWrapper.innerHTML =
                               `<div class="col-sm-12 col-md-4 col-lg-4">
-                                    <div id="${projectId}" 
+                                    <div id="${projectId}"
                                         class="button viewMoreButton btn-font mb-3">
                                         View
                                     </div>
                                 </div>
                                 <div class="col-sm-12 col-md-4 col-lg-4">
-                                    <div id="edit${projectId}" 
+                                    <div id="edit${projectId}"
                                         class="editButton btn-dark btn-font radius py-2 px-2 mb-3">
                                         Edit
                                     </div>
@@ -1076,7 +1085,7 @@ $(document).ready(function(){
                                     </div>
                               </div>`;
 
-    addListenersToCardButtons(); 
+    addListenersToCardButtons();
   }
 
   // ============================== Hayley's code ends =================================
