@@ -6,8 +6,8 @@
         <title>Artful App</title>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans|Quicksand&display=swap">
         <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
-        <!-- <link href="css/style.css" rel="stylesheet"> -->
-        <link href="css/style.min.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
+        <!-- <link href="css/style.min.css" rel="stylesheet"> -->
     </head>
     <body>
           <!--  ======================= Hayley's code starts ==============================  -->
@@ -16,22 +16,25 @@
           <!--  ========================== APP HEADER ====================================  -->
 
           <div class="header nav-border px-3 py-3">
-
-              <!-- Logo  -->
-              <img src="images/logo.png" id="homeBtn" class="logo" alt="logo">
-
-              <!-- Navigations -->
-              <div class="nav">
-                  <div id="signUpBtn" class="nav-font py-2 px-3 bg-dark text-white radius">Sign Up!</div>
-                  <div id="loginBtn" class="signInButton nav-font">Login</div>
-                  <div id="memberName" class="mr-3 pt-2"></div>
-                  <button id="myPortfolioBtn" class="nav-font btn btn-dark py-2 px-2 radius">My Portfolio</button>
-                  <div class="signOutButton nav-font py-2 px-2">
-                      <a id="logoutBtn">Logout</a>
-                  </div>
-              </div>
+            <img src="images/logo.png" class="logo home-btn" alt="logo">
+            <div class="nav">
+              <li class="nav-item">
+                <a class="nav-link nav-font py-2 px-2 home-btn text-dark" href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <div id="signUpBtn" class="nav-font py-2 px-3 btn btn-dark text-white radius">Sign Up!</div>
+              </li>
+              <li class="nav-item">
+                <a id="loginBtn" class="nav-link nav-font signInButton text-dark" href="#">Login</a>
+              </li>
+              <li class="nav-item">
+                <button id="myPortfolioBtn" class="nav-font btn btn-dark py-2 px-2 radius">My Portfolio</button>
+              </li>
+              <li class="nav-item">
+                <a id="logoutBtn" class="nav-link nav-font py-2 px-2 text-dark" href="#">Logout</a>
+              </li>
+            </div>
           </div>
-
 
           <!--  =========================== LANDING PAGE ================================  -->
           <div id="landingPage">
@@ -84,7 +87,7 @@
               <div class="container">
 
                   <!-- MyAccount summary -->
-                  <h1 class="text-center mt-4 mb-5">Account</h1>
+                      <div id="memberName"></div>
                   <div class="mb-5 mt-3 py-5 px-5 border-gray radius col-lg-9 col-md-12 col-sm-12 mx-auto">
                       <div id="memberAccount"></div>
                       <button id="updateMemberBtn" name="updateMemberBtn" class="btn btn-dark btn-font float-right radius">Edit</button>
@@ -210,7 +213,7 @@
           <div id="signUpPage">
               <div class="bg-page bg-register">
                   <div class="form-box radius">
-                      <form id="registerForm" class="mt-5 col-lg-8 col-md-10 col-sm-10 mx-auto">
+                      <form id="registerForm" class="mt-2 mt-lg-5 col-lg-8 col-md-10 col-sm-10 mx-auto">
                           <h2 class="text-center pt-4">Join Art App!</h2>
                           <h3 class="mb-3 text-center text-dark">Support New Zealand Artists</h3>
                           <!-- Username -->
@@ -241,8 +244,8 @@
 
           <div id="loginPage">
               <div class="row">
-                  <div class="col-lg-5 col-md-6 col-sm-12">
-                      <img src="images/KateLeslie_ThePunk.jpg" alt="Kate Leslie Artist, The Punk" class="img-fluid">
+                <div class="col-lg-5 col-md-6 d-none d-md-block">
+                    <img src="images/KateLeslie_ThePunk.jpg" alt="Kate Leslie Artist, The Punk" class="img-fluid">
                   </div>
                   <div class="col-lg-7 col-md-6 col-sm-12 pt-5">
                       <form id="loginForm" class="mb-3">
@@ -266,21 +269,25 @@
                           </div>
                       </form>
                   </div>
+                  <div class="col-sm-12 d-block d-md-none">
+                    <img src="images/KateLeslie_ThePunk.jpg" alt="Kate Leslie Artist, The Punk" class="img-fluid">
+                  </div>
               </div>
           </div>
 
 
           <!--  ============================ APP FOOTER ================================  -->
 
-          <footer class="navbar bg-cyan">
-              <div class="row mx-auto">
-                  <div class="col-12 col-lg-12 col-sm-12 mt-3">
-                      <div class="text-center">
-                          <p class="text-white btn-font">Created by Hayley, Rahul and Yana for a Yoobee Assignment.</p>
-                          <p class="text-white text-center">Featured art by <a class="text-white" href="https://www.kateleslie.com/">Kate Leslie</a> and <a class="text-white" href="https://www.brewster.co.nz">Barney Brewster</a></p>
-                      </div>
-                  </div>
+
+          <footer class="navbar bg-cyan d-none d-md-block">
+            <div class="row mx-auto">
+              <div class="col-12 col-lg-12 col-sm-12 mt-3">
+                <div class="text-center">
+                  <p class="text-white btn-font">Created by Hayley, Rahul and Yana for a Yoobee Assignment.</p>
+                  <p class="text-white text-center">Featured art by <a class="text-white" href="https://www.kateleslie.com/">Kate Leslie</a> and <a class="text-white" href="https://www.brewster.co.nz">Barney Brewster</a></p>
+                </div>
               </div>
+            </div>
           </footer>
 
 

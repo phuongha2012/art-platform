@@ -94,6 +94,7 @@ $(document).ready(function(){
 
   //upload projects button to show upload project page
   $('#addPortfolio').click(function(){
+      $('html, body').animate({ scrollTop: 0 }, 'fast');
     // pages
     $('#uploadPortfolioPage').show();
     $('#projectPage').hide();
@@ -119,6 +120,7 @@ $(document).ready(function(){
 
   //update projects button to show update project page
   $('#updateProject').click(function(){
+
     // pages
     $('#uploadPortfolioPage').hide();
     $('#projectPage').hide();
@@ -140,6 +142,12 @@ $(document).ready(function(){
     $('#viewMorePage').hide();
     $('#updatePortfolioPage').hide();
   });
+
+// edit button to scroll up on update page
+
+$('.edit-button').click(function(){
+      $('html, body').animate({ scrollTop: 0 }, 'fast');
+});
 
 
   // Logout member ===============================================================
@@ -328,6 +336,7 @@ $(document).ready(function(){
     } //else
   }); // submit add portfolio
 
+
   // Yanas code ENDS
 
 
@@ -364,31 +373,27 @@ $(document).ready(function(){
   // Map portfolios result from backend into product cards and attach to #artsDeck div
   function makeProductCards(arr) {
     document.getElementById('artsDeck').innerHTML = arr.map(art =>
-                                                                  `<div class="col-sm-12 col-md-6 col-lg-4 my-xs-1 my-sm-1 my-md-3 my-lg-3">
-                                                                      <div class="card card-border rounded-0 mb-4">
-                                                                          <img src="${art.image}"
-                                                                              alt="Avatar"
-                                                                              class="card-img-top radius">
-                                                                          <div class="card-body artcard-body mx-1 my-1">
-                                                                              <div class="artcard-columnwrap">
-                                                                                  <h4 class="card-title mb-3">${art.title}</h4>
-                                                                                  <h5 class="card-title artcard-price">&dollar;${art.price}</h5>
-                                                                              </div>
-                                                                              <p class="card-title"><b>${art.authorInfo.username}, ${art.authorInfo.location}</b></p>
-                                                                              <p class="mb-3 text-truncate">${art.description}</p>
-                                                                              <a href="${art.authorInfo.website}"
-                                                                                class="card-link artcard-link">
-                                                                                Artist Website</a>
-                                                                              <div class="artcard-columnwrap mt-4">
-                                                                                  <p class="card-title h5-cyan">${art.category}</p>
-                                                                                  <div id="${art._id}
-                                                                                      class="button viewMoreButton btn-font"">
-                                                                                      View</div>
-                                                                              </div>
-                                                                          </div>
-                                                                      </div>
-                                                                  </div>`)
-                                                        .join(' ');
+      `<div class="col-sm-12 col-md-6 col-lg-4 my-xs-1 my-sm-1 my-md-3 my-lg-3">
+        <div class="card card-border rounded-0 mb-4">
+
+        <img src="${art.image}" id="${art._id}" alt="Avatar" class="card-img-top radius viewMoreButton">
+
+        <div class="card-body artcard-body mx-1 my-1">
+        <div class="artcard-columnwrap">
+        <h4 class="card-title mb-3">${art.title}</h4>
+        <h5 class="card-title artcard-price">&dollar;${art.price}</h5>
+        </div>
+        <p class="card-title"><b> <a href="${art.authorInfo.website}" class="card-link artcard-link">${art.authorInfo.username}</a>, ${art.authorInfo.location}</b></p>
+        <p class="mb-3 text-truncate">${art.description}</p>
+        <div class="artcard-columnwrap mt-4">
+        <p class="card-title h5-cyan">${art.category}</p>
+        <div class="button viewMoreButton btn-font" id="${art._id}">View</div>
+        </div>
+        </div>
+
+        </div>
+        </div>`
+      ).join(' ');
 
     // If viewMore button is clicked, show viewMorePage
     let viewMoreButtons = document.getElementsByClassName('viewMoreButton');
@@ -518,7 +523,7 @@ $(document).ready(function(){
                                                             <h5 class="h3">${portfolio.title}</h5>
                                                             <div class="viewMore-photoBackground">
                                                                 <img src="${portfolio.image}"
-                                                                    class="viewMore-mainPhoto"
+                                                                    class="viewMore-mainPhoto img-fluid"
                                                                     alt="${portfolio.title} photo">
                                                             </div>
                                                             <div class="flexContainer-row mt-3 mb-3">
@@ -855,7 +860,7 @@ $(document).ready(function(){
       success: function(results) {
             if (results === "No portfolio by this user found") {
               document.getElementById('myProjectCards').innerHTML =
-                  `<div class="noPortfolio text-center">You have not upload any project yet!</div>`;
+                  `<div class="noPortfolio text-center">You have not uploaded a project yet</div>`;
               return;
             }
 
@@ -869,55 +874,26 @@ $(document).ready(function(){
 
   // Map portfolios result into portfolio cards and attach to #myProjectCards div
   function makePortfolioCards(arr) {
-    document.getElementById('myProjectCards').innerHTML = arr.map(item =>
-                                                                        `<div class="card
-                                                                                    portfolioCard
-                                                                                    border-bottom">
-                                                                            <div style="background-image:url(${item.image})"
-                                                                                class="portfolioPage-image"></div>
-                                                                            <h5 class="portfolioPage-cardTitle
-                                                                                      card-text mb-3">
-                                                                                      ${item.title}</h5>
-                                                                            <div id="portfolioCard__buttonWrapper${item._id}"
-                                                                                class="row mb-2">
-                                                                                <div class="col-sm-12
-                                                                                            col-md-4
-                                                                                            col-lg-4">
-                                                                                    <div id="${item._id}"
-                                                                                        class="button
-                                                                                                viewMoreButton
-                                                                                                btn-font
-                                                                                                mb-3">
-                                                                                                View</div>
-                                                                                </div>
-                                                                                <div class="col-sm-12
-                                                                                            col-md-4
-                                                                                            col-lg-4">
-                                                                                    <div id="edit${item._id}
-                                                                                        class="editButton
-                                                                                                btn-dark
-                                                                                                btn-font
-                                                                                                radius
-                                                                                                py-2
-                                                                                                px-2
-                                                                                                mb-3"">
-                                                                                                Edit</div>
-                                                                                </div>
-                                                                                <div class="col-sm-12
-                                                                                            col-md-4
-                                                                                            col-lg-4">
-                                                                                    <div id="delete${item._id}"
-                                                                                        class="deleteButton
-                                                                                                btn-red radius
-                                                                                                px-3 py-2
-                                                                                                mb-3
-                                                                                                btn-font
-                                                                                                float-lg-right">
-                                                                                                Delete</div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>`)
-                                                              .join(' ');
+    document.getElementById('myProjectCards').innerHTML = arr.map(item => `
+      <div class="card portfolioCard border-bottom">
+      <div style="background-image:url(${item.image})" class="portfolioPage-image mb-3"></div>
+      <h5 class="portfolioPage-cardTitle card-text mb-3">${item.title}</h5>
+      <div id="portfolioCard__buttonWrapper${item._id}" class="row mb-2">
+      <div class="row mb-2">
+      <div class="col-sm-12 col-md-4 col-lg-4">
+      <div class="button viewMoreButton btn-font mb-3" id="${item._id}">View</div>
+      </div>
+      <div class="col-sm-12 col-md-4 col-lg-4">
+      <div class="editButton edit-button btn-dark btn-font radius py-2 px-2 mb-3" id="edit${item._id}">Edit</div>
+      </div>
+      <div class="col-sm-12 col-md-4 col-lg-4">
+      <div class="deleteButton btn-red radius px-3 py-2 mb-3 btn-font float-lg-right" id="delete${item._id}">Delete</div>
+      </div>
+      </div>
+      </div>
+      </div>
+      `).join(' ');
+
 
     addListenersToCardButtons();
   }

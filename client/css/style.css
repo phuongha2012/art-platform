@@ -204,6 +204,7 @@ footer {
 }
 @media (max-width: 720px) {
   .container-form {
+    height: 100%;
     width: 100%;
   }
 }
@@ -216,7 +217,7 @@ footer {
 }
 @media (max-width: 720px) {
   .form-box {
-    height: 95vh;
+    height: 100%;
     width: 100%;
   }
 }

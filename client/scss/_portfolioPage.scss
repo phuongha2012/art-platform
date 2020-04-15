@@ -6,6 +6,7 @@
   margin: 0 auto;
   width: 70%;
   @media (max-width: $tablet) {
+    height: 100%;
     width: 100%;
 }
 }
@@ -16,7 +17,7 @@
   margin: 0 auto;
   width: 60%;
   @media (max-width: $tablet) {
-    height: 95vh;
+    height: 100%;
     width: 100%;
 }
 }
