@@ -4,6 +4,16 @@ $(document).ready(function(){
   const url = "https://artful-nz.herokuapp.com";
   generateLandingPageCards();
 
+
+  // Display spinner on ajax requests
+  $(document).ajaxStart(function(){
+    $(".loader").css("display", "block");
+  });
+  
+  $(document).ajaxComplete(function(){
+    $(".loader").css("display", "none");
+  });
+
   // Show and hide pages ===============================================================
   // Yanas code
 

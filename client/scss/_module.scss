@@ -113,4 +113,22 @@
   text-align: center;
 }
 
+// Loading spinner
+
+.loader {
+  animation: spin 1s linear infinite;
+  border-radius: 50%;
+  border-top: 5px solid #67696b;
+  border: 5px solid #f3f3f3;
+  height: 60px;
+  margin: 0 auto;
+  width: 60px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
 // Hayley's code ends
