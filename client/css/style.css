@@ -197,13 +197,13 @@ footer {
 }
 
 .loader {
-  animation: spin 1s linear infinite;
-  border-radius: 50%;
-  border-top: 5px solid #67696b;
   border: 5px solid #f3f3f3;
-  height: 60px;
-  margin: 0 auto;
+  border-top: 5px solid #67696b;
+  border-radius: 50%;
   width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto;
 }
 
 @keyframes spin {

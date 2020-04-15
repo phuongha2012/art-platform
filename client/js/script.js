@@ -6,12 +6,17 @@ $(document).ready(function(){
 
 
   // Display spinner on ajax requests
+  let loadingTimer;
+
   $(document).ajaxStart(function(){
     $(".loader").css("display", "block");
+    clearTimeout(loadingTimer);
   });
   
   $(document).ajaxComplete(function(){
-    $(".loader").css("display", "none");
+    loadingTimer = setTimeout(function () {
+      $(".loader").css("display", "none");
+  }, 1500)
   });
 
   // Show and hide pages ===============================================================
