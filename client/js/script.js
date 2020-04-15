@@ -17,6 +17,20 @@ $(document).ready(function(){
   // Show and hide pages ===============================================================
   // Yanas code
 
+  $('#logoutBtn').hide();
+  $('#myPortfolioBtn').hide();
+  $('.home-btn').show();
+  $('#loginBtn').show();
+  $('#signUpBtn').show();
+  // pages
+  $('#landingPage').show();
+  $('#viewMorePage').hide();
+  $('#loginPage').hide();
+  $('#signUpPage').hide();
+  $('#projectPage').hide();
+  $('#uploadPortfolioPage').hide();
+  $('#updatePortfolioPage').hide();
+
   //check if there is any session sessionStorage
   if (sessionStorage.username) {
     // buttons
@@ -34,22 +48,7 @@ $(document).ready(function(){
     $('#projectPage').hide();
     $('#uploadPortfolioPage').hide();
     $('#updatePortfolioPage').hide();
-  } else {
-    // buttons
-    $('#logoutBtn').hide();
-    $('#myPortfolioBtn').hide();
-    $('.home-btn').show();
-    $('#loginBtn').show();
-    $('#signUpBtn').show();
-    // pages
-    $('#landingPage').show();
-    $('#viewMorePage').hide();
-    $('#loginPage').hide();
-    $('#signUpPage').hide();
-    $('#projectPage').hide();
-    $('#uploadPortfolioPage').hide();
-    $('#updatePortfolioPage').hide();
-  }
+  } 
 
   //Home button to show landing page
   $('.home-btn').click(function(){
