@@ -1,4 +1,6 @@
 $(document).ready(function(){
+
+
   $('html, body').animate({ scrollTop: 0 }, 'fast');
   // sessionStorage.clear();
   const url = "https://artful-nz.herokuapp.com";
@@ -12,11 +14,11 @@ $(document).ready(function(){
     $(".loader").css("display", "block");
     clearTimeout(loadingTimer);
   });
-  
+
   $(document).ajaxComplete(function(){
     loadingTimer = setTimeout(function () {
       $(".loader").css("display", "none");
-  }, 1500)
+  }, 1500);
   });
 
   // Show and hide pages ===============================================================
@@ -53,7 +55,7 @@ $(document).ready(function(){
     $('#projectPage').hide();
     $('#uploadPortfolioPage').hide();
     $('#updatePortfolioPage').hide();
-  } 
+  }
 
   //Home button to show landing page
   $('.home-btn').click(function(){
@@ -223,13 +225,23 @@ $('.edit-button').click(function(){
       },
       success : function(member){
         if (member !== 'Members name is already taken. Please choose another name') {
-          alert ('Your account has been created, please login to activate your account');
+          Swal.fire({
+            title: 'Account Created!',
+            text: 'Your account has been created, please login to activate your account',
+            icon: 'success',
+            confirmButtonText: 'OK'
+        });
           $('#loginBtn').show();
           $('#registerBtn').hide();
           $('#loginPage').show();
           $('#signUpPage').hide();
         } else {
-          alert('Username already taken. Please try another one');
+          Swal.fire({
+          title: 'Error!',
+          text: 'Username already taken. Please try another one',
+          icon: 'error',
+          confirmButtonText: 'OK'
+        });
           $('#registerUsername').val('');
           $('#registerEmail').val('');
           $('#registerPassword').val('');
@@ -259,11 +271,26 @@ $('.edit-button').click(function(){
       },
       success : function(loginData){
         if (loginData === ' ') {
-          alert('Please fill in all input fields');
+          Swal.fire({
+            title: 'Empty Input Field',
+            text: 'Please fill in all input fields',
+            icon: 'warning',
+            confirmButtonText: 'OK'
+        });
         } else if (loginData === 'Member not found. Please register') {
-          alert('Register please');
+          Swal.fire({
+            title: 'Not Registered',
+            text: 'Member not found. Please register',
+            icon: 'warning',
+            confirmButtonText: 'OK'
+        });
         } else if (loginData === 'Not Authorized') {
-          alert('Incorrect Password');
+          Swal.fire({
+            title: 'Opps',
+            text: 'Incorrect username or password',
+            icon: 'error',
+            confirmButtonText: 'OK'
+        });
         }  else {
           sessionStorage.setItem('memberId',loginData._id);
           sessionStorage.setItem('username',loginData.username);
@@ -311,7 +338,12 @@ $('.edit-button').click(function(){
     let _memberId = sessionStorage.getItem('memberId');
 
     if (title == '' || description == '' || image == '' || category == '' || price == ''){
-      alert('Please enter all details');
+      Swal.fire({
+        title: 'Empty Input Field',
+        text: 'Please fill in all input fields',
+        icon: 'warning',
+        confirmButtonText: 'OK'
+    });
     } else {
       $.ajax({
         url :`${url}/addPortfolio`,
@@ -326,10 +358,12 @@ $('.edit-button').click(function(){
         },
         success : function(portfolio){
           if (portfolio !== 'Artwork already added') {
-            alert('Added the portfolio');
-          } else {
-            alert('Title taken already, please try another one');
-          }
+            Swal.fire({
+              title: 'Artwork Uploaded',
+              text: 'You project has been added to your portfolio',
+              icon: 'success',
+              confirmButtonText: 'OK'
+          });
           $('#addPortfolioTitle').val();
           $('#addPortfolioDescription').val();
           $('#addPortfolioImage').val();
@@ -342,6 +376,16 @@ $('.edit-button').click(function(){
           generateMyPortfolios();
           $('#projectPage').show();
           $('html, body').animate({ scrollTop: 50}, 'fast');
+          } else {
+            Swal.fire({
+              title: 'Title Taken',
+              text: 'Title has been taken already, please try another one',
+              icon: 'warning',
+              confirmButtonText: 'OK'
+          });
+
+          }
+
         },   // success
         error:function(){
           // console.log('error: cannot call api');
@@ -888,49 +932,49 @@ $('.edit-button').click(function(){
 
   // Map portfolios result into portfolio cards and attach to #myProjectCards div
   function makePortfolioCards(arr) {
-    document.getElementById('myProjectCards').innerHTML = arr.map(item => 
-                                                                        `<div class="card 
-                                                                                    portfolioCard 
+    document.getElementById('myProjectCards').innerHTML = arr.map(item =>
+                                                                        `<div class="card
+                                                                                    portfolioCard
                                                                                     border-bottom">
-                                                                            <div style="background-image:url(${item.image})" 
+                                                                            <div style="background-image:url(${item.image})"
                                                                                 class="portfolioPage-image"></div>
-                                                                            <h5 class="portfolioPage-cardTitle 
+                                                                            <h5 class="portfolioPage-cardTitle
                                                                                       card-text mb-3">
                                                                                       ${item.title}</h5>
-                                                                            <div id="portfolioCard__buttonWrapper${item._id}" 
+                                                                            <div id="portfolioCard__buttonWrapper${item._id}"
                                                                                 class="row mb-2">
-                                                                                <div class="col-sm-12 
-                                                                                            col-md-4 
+                                                                                <div class="col-sm-12
+                                                                                            col-md-4
                                                                                             col-lg-4">
                                                                                     <div id="${item._id}"
-                                                                                        class="button 
-                                                                                                viewMoreButton 
-                                                                                                btn-font 
+                                                                                        class="button
+                                                                                                viewMoreButton
+                                                                                                btn-font
                                                                                                 mb-3">
                                                                                                 View</div>
                                                                                 </div>
-                                                                                <div class="col-sm-12 
-                                                                                            col-md-4 
+                                                                                <div class="col-sm-12
+                                                                                            col-md-4
                                                                                             col-lg-4">
                                                                                     <div id="edit${item._id}"
-                                                                                        class="editButton 
-                                                                                                btn-dark 
-                                                                                                btn-font 
-                                                                                                radius 
-                                                                                                py-2 
-                                                                                                px-2 
+                                                                                        class="editButton
+                                                                                                btn-dark
+                                                                                                btn-font
+                                                                                                radius
+                                                                                                py-2
+                                                                                                px-2
                                                                                                 mb-3">
                                                                                                 Edit</div>
                                                                                 </div>
-                                                                                <div class="col-sm-12 
-                                                                                            col-md-4 
+                                                                                <div class="col-sm-12
+                                                                                            col-md-4
                                                                                             col-lg-4">
                                                                                     <div id="delete${item._id}"
-                                                                                        class="deleteButton 
-                                                                                                btn-red radius 
-                                                                                                px-3 py-2 
-                                                                                                mb-3 
-                                                                                                btn-font 
+                                                                                        class="deleteButton
+                                                                                                btn-red radius
+                                                                                                px-3 py-2
+                                                                                                mb-3
+                                                                                                btn-font
                                                                                                 float-lg-right">
                                                                                                 Delete</div>
                                                                                 </div>
@@ -938,7 +982,7 @@ $('.edit-button').click(function(){
                                                                         </div>`)
                                                               .join(' ');
 
-    addListenersToCardButtons();  
+    addListenersToCardButtons();
   }
 
   // Add event listeners to viewMoreButtons, Edit, Delete buttons of project cards

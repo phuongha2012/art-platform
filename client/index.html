@@ -122,17 +122,17 @@
                       <!-- Project title -->
                       <div class="form-group">
                           <label class="h5-label" for="addPortfolioTitle">Title</label>
-                          <input id="addPortfolioTitle" type="text" class="form-control rounded" placeholder="Title" name="addPortfolioTitle" required>
+                          <input id="addPortfolioTitle" type="text" class="form-control rounded" placeholder="Title" name="addPortfolioTitle">
                       </div>
                       <!-- Project description -->
                       <div class="form-group">
                           <label class="h5-label" for="addPortfolioDescription">Description</label>
-                          <textarea id="addPortfolioDescription" class="form-control rounded" placeholder="Description" name="addPortfolioDescription" required></textarea>
+                          <textarea id="addPortfolioDescription" class="form-control rounded" placeholder="Description" name="addPortfolioDescription"></textarea>
                       </div>
                       <!-- Project image url -->
                       <div class="form-group">
                           <label class="h5-label" for="addPortfolioImage">Image URL</label>
-                          <input id="addPortfolioImage" type="text" class="form-control rounded" placeholder="Image URL" name="addPortfolioImage" required>
+                          <input id="addPortfolioImage" type="text" class="form-control rounded" placeholder="Image URL" name="addPortfolioImage">
                       </div>
                       <!-- Project category select -->
                       <div class="row mb-2">
@@ -150,7 +150,7 @@
                         <!-- Project price -->
                         <div class="form-group col-6">
                             <label class="h5-label" for="addPortfolioPrice">Price($)</label>
-                            <input type="number" id="addPortfolioPrice" class="form-control rounded" placeholder="Price" name="addPortfolioPrice" required>
+                            <input type="number" id="addPortfolioPrice" class="form-control rounded" placeholder="Price" name="addPortfolioPrice">
                         </div>
                       </div>
                     <button id="addPortfolioBtn" name="addPortfolioButton" type="submit" class="btn btn-dark btn-font float-right radius">Submit</button>
@@ -224,17 +224,17 @@
                           <!-- Username -->
                           <div class="form-group">
                               <label class="h5-label" for="registerUsername">Username</label>
-                              <input type="text" name="registerUsername" class="form-control rounded" placeholder="Username" id="registerUsername" required>
+                              <input type="text" name="registerUsername" class="form-control rounded" placeholder="Username" id="registerUsername" >
                           </div>
                           <!-- Email -->
                           <div class="form-group">
                               <label class="h5-label" for="registerEmail">Email</label>
-                              <input id="registerEmail" class="form-control rounded" type="email" name="registerEmail" placeholder="Email" required>
+                              <input id="registerEmail" class="form-control rounded" type="email" name="registerEmail" placeholder="Email" >
                           </div>
                           <!-- Password -->
                           <div class="form-group">
                               <label class="h5-label" for="registerPassword">Password</label>
-                              <input id="registerPassword" class="form-control rounded" type="password" autocomplete="new-password" name="registerPassword" placeholder="Password" required autofocus>
+                              <input id="registerPassword" class="form-control rounded" type="password" autocomplete="new-password" name="registerPassword" placeholder="Password">
                               <div id="errorPassword"></div>
                           </div>
                           <div class="text-center">
@@ -259,13 +259,13 @@
                           <!-- Username -->
                           <div class="form-group col-lg-6 col-md-6 col-sm-12 mx-auto">
                               <label for="inputUsernameLogin" class="h3-label"> Username </label>
-                              <input type="text" id="inputUsernameLogin" name="loginUsername" placeholder="Username" class="form-control rounded" required>
+                              <input type="text" id="inputUsernameLogin" name="loginUsername" placeholder="Username" class="form-control rounded">
                           </div>
 
                           <!-- Password -->
                           <div class="form-group col-lg-6 col-md-6 col-sm-12 mx-auto">
                               <label for="inputPasswordLogin" class="h3-label"> Password </label>
-                              <input type="password" id="inputPasswordLogin" name="loginPassword" placeholder="Password" class="form-control rounded" required>
+                              <input type="password" id="inputPasswordLogin" name="loginPassword" placeholder="Password" class="form-control rounded">
                           </div>
 
                           <!-- Login button -->
@@ -303,6 +303,7 @@
           <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
           <!-- <script src="js/script.js"></script> -->
           <script src="js/script.min.js"></script>
+          <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.10.12/dist/sweetalert2.all.min.js"></script>
 
     </body>
 </html>
