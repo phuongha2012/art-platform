@@ -18,7 +18,7 @@ $(document).ready(function(){
   $(document).ajaxComplete(function(){
     loadingTimer = setTimeout(function () {
       $(".loader").css("display", "none");
-  }, 1500);
+  }, 2000);
   });
 
   // Show and hide pages ===============================================================
@@ -247,8 +247,8 @@ $('.edit-button').click(function(){
           $('#registerPassword').val('');
         }
       },//success
-      error:function(){
-        // console.log('error: cannot call api');
+      error:function(err){
+        console.log(err);
       }//error
 
     });//ajax
