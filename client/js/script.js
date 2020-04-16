@@ -430,27 +430,24 @@ $('.edit-button').click(function(){
   // Map portfolios result from backend into product cards and attach to #artsDeck div
   function makeProductCards(arr) {
     document.getElementById('artsDeck').innerHTML = arr.map(art =>
-      `<div class="col-sm-12 col-md-6 col-lg-4 my-xs-1 my-sm-1 my-md-3 my-lg-3">
-        <div class="card card-border rounded-0 mb-4">
-
-        <img src="${art.image}" id="${art._id}" alt="Avatar" class="card-img-top radius viewMoreButton">
-
-        <div class="card-body artcard-body mx-1 my-1">
-        <div class="artcard-columnwrap">
-        <h4 class="card-title mb-3">${art.title}</h4>
-        <h5 class="card-title artcard-price">&dollar;${art.price}</h5>
-        </div>
-        <p class="card-title"><b> <a href="${art.authorInfo.website}" class="card-link artcard-link">${art.authorInfo.username}</a>, ${art.authorInfo.location}</b></p>
-        <p class="mb-3 text-truncate">${art.description}</p>
-        <div class="artcard-columnwrap mt-4">
-        <p class="card-title h5-cyan">${art.category}</p>
-        <div class="button viewMoreButton btn-font" id="${art._id}">View</div>
-        </div>
-        </div>
-
-        </div>
-        </div>`
-      ).join(' ');
+                                                                  `<div class="col-sm-12 col-md-6 col-lg-4 my-xs-1 my-sm-1 my-md-3 my-lg-3">
+                                                                        <div class="card card-border rounded-0 mb-4">
+                                                                            <img src="${art.image}" id="${art._id}" alt="Avatar" class="card-img-top radius viewMoreButton">
+                                                                            <div class="card-body artcard-body mx-1 my-1">
+                                                                                <div class="artcard-columnwrap">
+                                                                                    <h4 class="card-title mb-3">${art.title}</h4>
+                                                                                    <h5 class="card-title artcard-price">&dollar;${art.price}</h5>
+                                                                                </div>
+                                                                                <p class="card-title"><b> <a href="${art.authorInfo.website}" class="card-link artcard-link">${art.authorInfo.username}</a>, ${art.authorInfo.location}</b></p>
+                                                                                <p class="mb-3 text-truncate">${art.description}</p>
+                                                                                <div class="artcard-columnwrap mt-4">
+                                                                                    <p class="card-title h5-cyan">${art.category}</p>
+                                                                                    <div class="button viewMoreButton btn-font" id="${art._id}">View</div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>`
+                                                                  ).join(' ');
 
     // If viewMore button is clicked, show viewMorePage
     let viewMoreButtons = document.getElementsByClassName('viewMoreButton');

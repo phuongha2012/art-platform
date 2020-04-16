@@ -8,8 +8,8 @@ const portfolioSchema = new mongoose.Schema({
     category : String,
     price : Number,
     memberId : {
-    type : mongoose.Schema.Types.ObjectId,
-    ref : 'Member'
+        type : mongoose.Schema.Types.ObjectId,
+        ref : 'Member'
     }
 });
 // For it to be used

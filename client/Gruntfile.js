@@ -40,7 +40,9 @@ module.exports = function(grunt) {
           ids: false,
           "universal-selector": false,
           "box-sizing": false,
-          "known-properties": false
+          "known-properties": false,
+          "box-model": false,
+          "order-alphabetical": false
         },
         src: ['css/*.css','!*.min.css']//do not include min files
       }
