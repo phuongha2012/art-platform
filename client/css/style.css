@@ -79,13 +79,6 @@ p {
   flex-direction: row;
 }
 
-.container-wrapper {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  padding-left: 70px;
-}
-
 footer {
   bottom: 0;
   position: absolute;
@@ -111,9 +104,6 @@ footer {
   color: white;
   cursor: pointer;
   text-align: center;
-}
-.btn-red :hover {
-  color: white;
 }
 
 .edit-button {
@@ -352,11 +342,6 @@ footer {
   width: 450px;
 }
 
-.artcard-title {
-  height: 56px;
-  margin-right: 50px;
-}
-
 .artcard-body {
   padding-left: 30px;
   padding-right: 30px;
@@ -365,21 +350,6 @@ footer {
 .artcard-columnwrap {
   display: flex;
   justify-content: space-between;
-}
-
-.artcard-description {
-  height: 72px;
-  overflow: hidden;
-  text-align: justify;
-}
-
-.art-image {
-  border: none;
-  border-radius: 50px;
-  height: auto;
-  max-height: 300px;
-  max-width: 449px;
-  width: auto;
 }
 
 .artcard-link {

@@ -3,7 +3,7 @@
   background-image: url('../images/BarneyBrewsterBanner.jpg');
   background-size: cover;
   height: 50vh;
-  // Yanas responsive code
+  // YANAS responsive code
   @media (max-width: $desktop) {
     background-repeat: no-repeat;
     height: 25vh;
@@ -37,10 +37,6 @@
   width: 450px;
 }
 
-.artcard-title {
-  height: 56px;
-  margin-right: 50px;
-}
 
 .artcard-body {
   padding-left: 30px;
@@ -50,21 +46,6 @@
 .artcard-columnwrap {
   display: flex;
   justify-content: space-between;
-}
-
-.artcard-description {
-  height: 72px;
-  overflow: hidden;
-  text-align: justify;
-}
-
-.art-image {
-  border: none;
-  border-radius: 50px;
-  height: auto;
-  max-height: 300px;
-  max-width: 449px;
-  width: auto;
 }
 
 .artcard-link {
@@ -78,7 +59,7 @@
 
 // Hayley's code ends
 
-// Yanas code
+// YANAS code ==========================================================
 .nav-border
 {
 	border-bottom: 4px solid $blue;
@@ -117,4 +98,4 @@
     display: none;
   }
 }
-// Yana code ends
+// YANAS code ends
