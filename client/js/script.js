@@ -180,32 +180,6 @@ $('.edit-button').click(function(){
     location.reload("#loginForm");
   });
 
-  // view all members button ===============================================================
-  // Yanas code
-
-  $('#viewMembersBtn').click(function(){
-    $.ajax({
-      url : `${url}/allMembers`,
-      type : 'GET',
-      dataType : 'json',
-      success : function(membersFromMongo){
-        $('#membersCards').empty();
-        document.getElementById('membersCards').innerHTML +=
-        '<h2 class="pt-5 pb-4">All Members</h2>';
-        for(let i = 0; i <membersFromMongo.length; i ++ ){
-          document.getElementById('membersCards').innerHTML +=
-          `<div class="col mt-3">
-          <h4> ${membersFromMongo[i].username}</h4>
-          </div>`;
-        }
-      },
-      error:function() {
-        // console.log('ERROR: cannot call API');
-      }//error
-
-    });//ajax
-  });
-
   // register member ===============================================================
   // Yanas code
 
